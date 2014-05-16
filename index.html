@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="Nscf">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Non so cosa fare</title>
+    <link rel="stylesheet" href="assets/libs/bootstrap/bootstrap.css"/>
+    <!--<link rel="stylesheet" href="assets/libs/bootstrap/bootstrap-theme.min.css"/>-->
+    <link rel="stylesheet" href="assets/css/app.css"/>
+    <link rel="stylesheet" href="http://tv.zam.it/canali.css"/>
+</head>
+<body>
+<div class="container" ng-controller="Main">
+    <ng-include src="'assets/templates/header.html'"></ng-include>
+
+    <ng-view></ng-view>
+
+    <ng-include src="'assets/templates/footer.html'"></ng-include>
+</div>
+</body>
+<script src="assets/libs/jq.js"></script>
+<script src="assets/libs/bootstrap/bootstrap.js"></script>
+<script src="assets/js/angular.min.js"></script>
+<script src="assets/js/angular-route.min.js"></script>
+<script src="assets/js/app.js"></script>
+</html>

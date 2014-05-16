@@ -1,0 +1,6 @@
+<p ng-show="loading == true" class="mal text-center">Caricamento eventi in corso ...</p>
+<div ng-show="loading == false">
+    <div ng-repeat="(id,event) in events">
+        <ng-include src="'/assets/templates/events/single-event-list.html'"></ng-include>
+    </div>
+</div>

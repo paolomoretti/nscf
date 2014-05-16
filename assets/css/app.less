@@ -1,0 +1,72 @@
+// Flat design bootstrap override
+
+@import "helpers.less";
+@import "bootstrap-flat.less";
+
+body {
+  background: url(../images/bggreydiag.gif);
+
+  .container {
+    background: #fff;
+
+    .header {
+      padding-top: 10px;
+      background: #67ce12;
+
+      p {
+        font-size: 12px;
+      }
+    }
+    .navigation {
+      nav {
+        background: #67ce12;
+        color: #fff;
+
+        .nav a {
+          color: #fff;
+        }
+      }
+    }
+
+    .footer {
+      margin-top: 20px;
+      .row {
+        background: #f5f5f5;
+
+        .col-sm-12 {
+          .breadcrumb {
+            padding: 8px 0;
+            margin-bottom: 6px;
+          }
+        }
+      }
+
+    }
+  }
+}
+
+// Province box
+.list-province {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.programmi-tv {
+  .fav,
+  td.gen {
+    display: none;
+  }
+}
+
+// Events
+.event-image {
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  margin: -10px -5px;
+}
+
+// Directives
+.glyphicon {
+  margin-right: 6px;
+}

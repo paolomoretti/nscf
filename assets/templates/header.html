@@ -1,0 +1,33 @@
+<div ng-controller="Header">
+    <div class="row navigation">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#/" title="Torna alla home page"><img src="http://www.nonsocosafare.it/i/logo2.gif" alt=""/></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{'active': getActiveSection() == 'oggi'}"><a href="#/events/filter/oggi">Oggi</a></li>
+                        <li ng-class="{'active': getActiveSection() == 'weekend'}"><a href="#/events/filter/weekend">Weekend</a></li>
+                        <li><a href="#/agenda">Agenda</a></li>
+                        <li><a href="#/calendario">Calendario</a></li>
+                        <li><a href="#/mappa">Mappa</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#/login">Accedi</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="col-sm-12">
+        </div>
+    </div>
+</div>

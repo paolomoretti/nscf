@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-sm-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Lista eventi <strong class="pull-right" icon="map-marker" ng-show="filterName != ''">{{filterName}}</strong></div>
+            <p ng-show="loading == true" class="mal text-center">Caricamento in corso ...</p>
+            <div ng-show="loading == false">
+                <div ng-repeat="(id,event) in events">
+                    <ng-include src="'assets/templates/events/single-event-list.html'"></ng-include>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Province</div>
+            <p ng-show="loadingProvince == true" class="mal text-center">Caricamento in corso ...</p>
+            <div class="list-group list-province">
+                <a class="list-group-item" ng-class="{'active': filterName == provincia.provincia}" ng-click="setFilterProvincia($event, provincia.id, provincia.provincia)" ng-repeat="provincia in province">
+                    <span class="badge">{{provincia.event_count}}</span>
+                    {{provincia.provincia}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
