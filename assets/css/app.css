@@ -418,6 +418,49 @@ pre {
 .carousel-caption {
   text-shadow: none;
 }
+.nav.nav-tabs li a {
+  background: #fafafa;
+  color: #67ce12;
+  border: 0;
+  border-bottom: 4px solid #e6e6e6;
+}
+.nav.nav-tabs li a:hover {
+  background: #f0f0f0;
+}
+.nav.nav-tabs li.active a {
+  background: #67ce12;
+  color: #ffffff;
+  border-bottom-color: #5bb710;
+}
+.nav.nav-tabs li.active a:hover {
+  background: #62c511;
+}
+.event-item .event-image {
+  background-size: cover;
+  width: 15%;
+  padding-top: 15%;
+  margin: 0px -5px;
+  background-color: #ededed;
+}
+.event-item p {
+  width: 84%;
+  margin-bottom: 3px;
+  float: right;
+}
+.event-item .event-date {
+  color: #cccccc;
+  display: block;
+  width: 84%;
+  margin-bottom: 3px;
+  float: right;
+}
+.event-item .event-luodo {
+  color: #bfbfbf;
+  display: block;
+  width: 84%;
+  margin-bottom: 3px;
+  float: right;
+}
 body {
   background: url(../images/bggreydiag.gif);
 }
@@ -455,12 +498,6 @@ body .container .footer .row .col-sm-12 .breadcrumb {
 .programmi-tv .fav,
 .programmi-tv td.gen {
   display: none;
-}
-.event-image {
-  background-size: cover;
-  width: 60px;
-  height: 60px;
-  margin: -10px -5px;
 }
 .glyphicon {
   margin-right: 6px;

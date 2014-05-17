@@ -36,7 +36,11 @@ Nscf.config([
   }
 ]);
 
-Main = function($scope, $rootScope) {};
+Main = function($scope, $rootElement) {
+  return $scope.$on("$routeChangeStart", function(next, current) {
+    return $rootElement.attr("class", current.$$route.controller.toLowerCase());
+  });
+};
 
 Header = function($scope, $location) {
   $scope.filterName = "nooo";
@@ -57,7 +61,7 @@ Home = function($scope, $http) {
       $scope.events = Nscf.events;
       return $scope.loading = false;
     } else {
-      return $http.get(Nscf.apiUrl + "events").success(function(data) {
+      return $http.get(Nscf.apiUrl + "events/today").success(function(data) {
         if ($scope.filterName === "") {
           $scope.events = data;
         }

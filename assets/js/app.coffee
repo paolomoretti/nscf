@@ -29,9 +29,9 @@ Nscf.config [
 
 ]
 
-Main = ($scope, $rootScope)->
-#  $scope.$on "$routeChangeStart", (next, current)->
-#    $rootScope.$broadcast
+Main = ($scope, $rootElement)->
+  $scope.$on "$routeChangeStart", (next, current)->
+    $rootElement.attr "class", current.$$route.controller.toLowerCase()
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -61,7 +61,7 @@ Home = ($scope, $http)->
       $scope.events = Nscf.events
       $scope.loading = false
     else
-      $http.get(Nscf.apiUrl + "events").success (data)->
+      $http.get(Nscf.apiUrl + "events/today").success (data)->
         $scope.events = data if $scope.filterName is ""
         Nscf.events = data
         $scope.loading = false

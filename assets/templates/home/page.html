@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-9">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs nav-">
             <li class="active"><a href="#">Eventi di oggi</a></li>
             <li><a href="#">Eventi nel Week end</a></li>
             <li><a href="#">Vicino a me</a></li>
@@ -13,7 +13,6 @@
 <div class="row">
     <div class="col-sm-9">
         <div class="panel panel-primary">
-            <div class="panel-heading">Lista eventi <strong class="pull-right" icon="map-marker" ng-show="filterName != ''">{{filterName}}</strong></div>
             <p ng-show="loading == true" class="mal text-center">Caricamento in corso ...</p>
             <div ng-show="loading == false">
                 <div ng-repeat="(id,event) in events">

@@ -1,0 +1,30 @@
+@import "variables";
+
+.nav {
+  &.nav-tabs {
+    li {
+      a {
+        background: darken(@color-white, 2);
+        color: @color-brand;
+        border: 0;
+        border-bottom: 4px solid darken(@color-white, 10);
+
+        &:hover {
+          background: darken(@color-white, 6);
+        }
+      }
+
+      &.active {
+        a {
+          background: @color-brand;
+          color: @color-white;
+          border-bottom-color: darken(@color-brand, 5);
+
+          &:hover {
+            background: darken(@color-brand, 2);
+          }
+        }
+      }
+    }
+  }
+}
