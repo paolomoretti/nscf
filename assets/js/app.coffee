@@ -1,5 +1,5 @@
 Nscf = angular.module "Nscf", ['ngRoute']
-Nscf.apiUrl = "http://www.nonsocosafare.it/newapi/?path="
+Nscf.apiUrl = "http://dev.nonsocosafare.it/api/"
 
 # Definisco le url da tracciare con Angular.
 Nscf.config [
@@ -51,7 +51,7 @@ Header = ($scope, $location)->
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-Home = ($scope, $http, $sce)->
+Home = ($scope, $http)->
   $scope.loading = true
   $scope.loadingProvince = false
   $scope.filterName = ""
@@ -61,7 +61,7 @@ Home = ($scope, $http, $sce)->
       $scope.events = Nscf.events
       $scope.loading = false
     else
-      $http.get(Nscf.apiUrl + "/events").success (data)->
+      $http.get(Nscf.apiUrl + "events").success (data)->
         $scope.events = data if $scope.filterName is ""
         Nscf.events = data
         $scope.loading = false

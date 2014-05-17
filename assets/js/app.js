@@ -3,7 +3,7 @@ var Event, Events, Header, Home, Login, Main, Nscf;
 
 Nscf = angular.module("Nscf", ['ngRoute']);
 
-Nscf.apiUrl = "http://www.nonsocosafare.it/newapi/?path=";
+Nscf.apiUrl = "http://dev.nonsocosafare.it/api/";
 
 Nscf.config([
   "$routeProvider", function($routeProvider) {
@@ -48,7 +48,7 @@ Header = function($scope, $location) {
   };
 };
 
-Home = function($scope, $http, $sce) {
+Home = function($scope, $http) {
   $scope.loading = true;
   $scope.loadingProvince = false;
   $scope.filterName = "";
@@ -57,7 +57,7 @@ Home = function($scope, $http, $sce) {
       $scope.events = Nscf.events;
       return $scope.loading = false;
     } else {
-      return $http.get(Nscf.apiUrl + "/events").success(function(data) {
+      return $http.get(Nscf.apiUrl + "events").success(function(data) {
         if ($scope.filterName === "") {
           $scope.events = data;
         }

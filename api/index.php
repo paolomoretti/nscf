@@ -1,4 +1,5 @@
 <?php
+require 'config.php';
 require 'flight/Flight.php';
 require 'helper.php';
 
