@@ -4,6 +4,9 @@
 @import "helpers.less";
 @import "bootstrap-flat.less";
 @import "components.less";
+
+@import "header.less";
+
 @import "events.less";
 @import "home.less";
 
@@ -24,29 +27,6 @@ html {
       overflow: hidden;
       padding: 0;
       background: @color-white;
-
-      .header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: @zindex-header;
-
-        .navigation {
-          nav {
-            background: @color-brand;
-            color: #fff;
-
-            .nav a {
-              color: #fff;
-            }
-
-            .navbar-brand {
-              margin: 0;
-            }
-          }
-        }
-      }
 
       .main-region {
         padding: 50px 0 58px 0;

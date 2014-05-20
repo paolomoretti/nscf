@@ -1,0 +1,8 @@
+@media screen and (max-width: 600px) {
+  html body > .container-fluid {
+    margin: 0 !important;
+  }
+  html body > .container-fluid .header {
+    padding: 0 10px;
+  }
+}

@@ -442,6 +442,23 @@ pre {
   color: #ffffff;
   border-bottom-color: #5bb710;
 }
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+.header .navigation nav {
+  background: #67ce12;
+  color: #fff;
+}
+.header .navigation nav .nav a {
+  color: #fff;
+}
+.header .navigation nav .navbar-brand {
+  margin: 0;
+}
 .event-item .event-image {
   background-size: cover;
   width: 15%;
@@ -485,23 +502,6 @@ html body > .container-fluid {
   overflow: hidden;
   padding: 0;
   background: #ffffff;
-}
-html body > .container-fluid .header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10;
-}
-html body > .container-fluid .header .navigation nav {
-  background: #67ce12;
-  color: #fff;
-}
-html body > .container-fluid .header .navigation nav .nav a {
-  color: #fff;
-}
-html body > .container-fluid .header .navigation nav .navbar-brand {
-  margin: 0;
 }
 html body > .container-fluid .main-region {
   padding: 50px 0 58px 0;

@@ -1,0 +1,17 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+.header .navigation nav {
+  background: #67ce12;
+  color: #fff;
+}
+.header .navigation nav .nav a {
+  color: #fff;
+}
+.header .navigation nav .navbar-brand {
+  margin: 0;
+}

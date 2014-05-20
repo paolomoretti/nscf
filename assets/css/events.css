@@ -1,0 +1,26 @@
+.event-item .event-image {
+  background-size: cover;
+  width: 15%;
+  padding-top: 15%;
+  margin: 0px -5px;
+  background-color: #ededed;
+}
+.event-item p {
+  width: 84%;
+  margin-bottom: 3px;
+  float: right;
+}
+.event-item .event-date {
+  color: #cccccc;
+  display: block;
+  width: 84%;
+  margin-bottom: 3px;
+  float: right;
+}
+.event-item .event-luodo {
+  color: #bfbfbf;
+  display: block;
+  width: 84%;
+  margin-bottom: 3px;
+  float: right;
+}

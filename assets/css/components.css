@@ -1,0 +1,19 @@
+.nav.nav-tabs li a {
+  background: #fafafa;
+  color: #67ce12;
+  border: 0;
+  border-bottom: 4px solid #e6e6e6;
+}
+.nav.nav-tabs li a:hover {
+  background: #f0f0f0;
+  border: 0;
+  border-bottom: 4px solid #e6e6e6;
+}
+.nav.nav-tabs li:hover a {
+  border-bottom: 4px solid #e6e6e6;
+}
+.nav.nav-tabs li.active a {
+  background: #67ce12;
+  color: #ffffff;
+  border-bottom-color: #5bb710;
+}

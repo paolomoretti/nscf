@@ -1,0 +1,24 @@
+@import "variables";
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: @zindex-header;
+
+  .navigation {
+    nav {
+      background: @color-brand;
+      color: #fff;
+
+      .nav a {
+        color: #fff;
+      }
+
+      .navbar-brand {
+        margin: 0;
+      }
+    }
+  }
+}
