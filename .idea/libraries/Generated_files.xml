@@ -3,10 +3,14 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/assets/js/app.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/directives.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/controllers.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/assets/js/app.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/directives.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/controllers.js" />
     </CLASSES>
     <SOURCES />
   </library>

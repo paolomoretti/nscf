@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <title>Non so cosa fare</title>
     <link rel="stylesheet" href="assets/libs/bootstrap/bootstrap.css"/>
-    <!--<link rel="stylesheet" href="assets/libs/bootstrap/bootstrap-theme.min.css"/>-->
     <link rel="stylesheet" href="assets/css/app.css"/>
-    <link rel="stylesheet" href="http://tv.zam.it/canali.css"/>
 </head>
 <body>
-<div class="container" ng-controller="Main">
-    <ng-include src="'assets/templates/header.html'"></ng-include>
+<div class="container-fluid" ng-controller="Main">
+    <div ng-include src="'assets/templates/header.html'" class="header"></div>
 
-    <ng-view></ng-view>
+    <div class="main-region">
+        <div ng-view class="main-view"></div>
+    </div>
 
-    <ng-include src="'assets/templates/footer.html'"></ng-include>
+    <div ng-include src="'assets/templates/footer.html'"></div>
 </div>
 </body>
 <script src="assets/libs/jq.js"></script>
@@ -22,4 +22,6 @@
 <script src="assets/js/angular.min.js"></script>
 <script src="assets/js/angular-route.min.js"></script>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/controllers.js"></script>
+<script src="assets/js/directives.js"></script>
 </html>
