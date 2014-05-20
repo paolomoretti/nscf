@@ -1,8 +1,11 @@
-<a class="list-group-item event-item" href="#/events/{{id}}">
-    <div class="clearfix">
-        <div class="event-image pull-left mrm" style="background-image: url('{{event.image_hi}}')"></div>
-        <p class="text-primary">{{event.nome}}</p>
-        <small class="event-date">{{event.data}}</small>
-        <small class="event-luogo">{{event.luogo}}</small>
+<a class="event-item" href="#/events/{{id}}">
+    <div class="event-image pull-left mrm" style="background-image: url('{{event.image_hi}}')">
+        <div class="date-container">
+            <div date="{{event.DataInizio}}" ng-show="event.DataInizio != ''"></div>
+            <div date="{{event.DataFine}}" ng-show="event.DataFine != ''"></div>
+        </div>
     </div>
+    <p class="text-primary">{{event.nome}}</p>
+    <small class="event-date">{{event.data}}</small>
+    <small class="event-luogo">{{event.luogo}}</small>
 </a>

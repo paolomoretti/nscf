@@ -81,8 +81,9 @@ Event = ($scope, $routeParams, $http)->
   $http.get(Nscf.apiUrl + "/event&id="+$routeParams.id).success (data)->
     $scope.ev = data
     $scope.loading = false
-    console.log "$scope.ev", data
 
+  $scope.getDay = (data)->
+    data.split("/")[0]
 
 #-----------------------------------------------------------------------------------------------------------------------
 

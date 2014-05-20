@@ -1,6 +1,11 @@
 @import "variables";
+@import "helpers";
 
 .event-item {
+  .clearfix;
+  padding: 10px 10px;
+  border-bottom: 3px solid lighten(@color-grey, 10);
+  display: block;
 
   .event-image {
     background-size: cover;
@@ -8,9 +13,25 @@
     padding-top: 15%;
     margin: 0px -5px;
     background-color: darken(@color-white, 7);
+    position: relative;
+
+    .date-container {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 100%;
+      text-align: right;
+
+      .date {
+        margin-left: 4px;
+      }
+    }
   }
 
   p {
+    font-family: 'helvetica neue',helvetica,arial,sans-serif;
+    font-size: 1.4em;
+    font-weight: 300;
     width: 84%;
     margin-bottom: 3px;
     float: right;

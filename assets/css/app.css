@@ -442,6 +442,38 @@ pre {
   color: #ffffff;
   border-bottom-color: #5bb710;
 }
+.date {
+  background-color: #ffffff;
+  width: 26px;
+  display: inline-block;
+}
+.date .dd {
+  background-color: #d47069;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: .5em;
+  text-align: center;
+  display: block;
+  padding: 2px 4px;
+}
+.date .gg {
+  color: #111111;
+  font-size: 1.1em;
+  text-align: center;
+  display: block;
+  padding: 2px 4px;
+  line-height: 1em;
+  font-weight: 600;
+}
+.date .mm {
+  background-color: #e6e6e6;
+  color: #111111;
+  text-transform: uppercase;
+  font-size: .5em;
+  text-align: center;
+  display: block;
+  padding: 1px 4px;
+}
 .header {
   position: absolute;
   top: 0;
@@ -459,14 +491,38 @@ pre {
 .header .navigation nav .navbar-brand {
   margin: 0;
 }
+.event-item {
+  padding: 10px 10px;
+  border-bottom: 3px solid #e6e6e6;
+  display: block;
+}
+.event-item:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .event-item .event-image {
   background-size: cover;
   width: 15%;
   padding-top: 15%;
   margin: 0px -5px;
   background-color: #ededed;
+  position: relative;
+}
+.event-item .event-image .date-container {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 100%;
+  text-align: right;
+}
+.event-item .event-image .date-container .date {
+  margin-left: 4px;
 }
 .event-item p {
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+  font-size: 1.4em;
+  font-weight: 300;
   width: 84%;
   margin-bottom: 3px;
   float: right;

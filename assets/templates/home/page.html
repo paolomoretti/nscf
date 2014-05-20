@@ -12,12 +12,10 @@
 </div>
 <div class="row">
     <div class="col-sm-9">
-        <div class="panel panel-primary">
-            <p ng-show="loading == true" class="mal text-center">Caricamento in corso ...</p>
-            <div ng-show="loading == false">
-                <div ng-repeat="(id,event) in events">
-                    <ng-include src="'assets/templates/events/single-event-list.html'"></ng-include>
-                </div>
+        <p ng-show="loading == true" class="mal text-center">Caricamento in corso ...</p>
+        <div ng-show="loading == false">
+            <div ng-repeat="(id,event) in events">
+                <ng-include src="'assets/templates/events/single-event-list.html'"></ng-include>
             </div>
         </div>
     </div>

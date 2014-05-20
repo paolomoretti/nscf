@@ -75,11 +75,13 @@ Events = function($scope, $routeParams, $http, $rootScope) {
 
 Event = function($scope, $routeParams, $http) {
   $scope.loading = true;
-  return $http.get(Nscf.apiUrl + "/event&id=" + $routeParams.id).success(function(data) {
+  $http.get(Nscf.apiUrl + "/event&id=" + $routeParams.id).success(function(data) {
     $scope.ev = data;
-    $scope.loading = false;
-    return console.log("$scope.ev", data);
+    return $scope.loading = false;
   });
+  return $scope.getDay = function(data) {
+    return data.split("/")[0];
+  };
 };
 
 Login = function($scope) {

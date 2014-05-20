@@ -14,3 +14,18 @@ Nscf.directive("icon", function() {
     }
   };
 });
+
+Nscf.directive("date", function() {
+  return {
+    link: function(scope, element, attrs) {
+      return attrs.$observe('date', function(date) {
+        var myDate;
+        myDate = moment(date, "DD-MM-YYYY").lang("it");
+        element.append($('<span class="dd">' + myDate.format('ddd') + '</span>'));
+        element.append($('<span class="gg">' + myDate.format('D') + '</span>'));
+        element.append($('<span class="mm">' + myDate.format('MMM') + '</span>'));
+        return element.addClass("date");
+      });
+    }
+  };
+});
