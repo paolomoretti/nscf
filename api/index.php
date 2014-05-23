@@ -24,13 +24,36 @@ Flight::route('GET /events/@id', function($id) {
   Flight::json($data);
 });
 
+Flight::route('GET /events/@id/image', function($id) {
+  $sql = "SELECT " . Flight::get("event_fields") . " FROM Query_Dettaglio WHERE id=$id";
+  $data = Flight::query($sql);
+  $event = $data[0];
+
+  $imageUri = $_SERVER["DOCUMENT_ROOT"]."/assets/images/events/".md5($event->image_hi);
+  if(!is_file($imageUri)) {
+    try {
+      copy($event->image_hi, $imageUri);
+    } catch (Exception $e) {}
+  }
+
+  $fp = fopen($imageUri, 'rb');
+
+  header("Content-Type: image/png");
+  header("Content-Length: " . filesize($imageUri));
+  fpassthru($fp);
+  exit;
+
+});
+
 Flight::route('GET /events/filter/weekend', function() {
   $weekendDates = Flight::getWeekendDates();
-  $sql = "SELECT " . Flight::get("event_fields") . " FROM Query_Dettaglio WHERE Annullato=0 AND DTSTART >= {$weekendDates["start"]} AND DTFINE <= {$weekendDates["start"]};";
-//  $sql = "SELECT " . Flight::get("event_fields") . " FROM Query_Dettaglio WHERE Annullato=0 AND DT;";
-  $data = Flight::query($sql);
+  $sat = Flight::query( "SELECT " . Flight::get("event_fields") . " FROM Query_Dettaglio WHERE Annullato=0 AND DTSTART >= {$weekendDates["start"]} AND DTFINE <= {$weekendDates["start"]};" );
+  $sun = Flight::query( "SELECT " . Flight::get("event_fields") . " FROM Query_Dettaglio WHERE Annullato=0 AND DTSTART >= {$weekendDates["end"]} AND DTFINE <= {$weekendDates["end"]};" );
 
-  Flight::json($data);
+  Flight::json(array(
+    "saturday" => $sat,
+    "sunday" => $sun
+  ));
 });
 
 
