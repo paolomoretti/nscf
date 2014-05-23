@@ -4,6 +4,23 @@ Flight::map("toKeyValue", function ($text) {
   return str_replace(" ", "_", $text);
 });
 
+Flight::map("getWeekendDates", function () {
+  if (date("w", time()) < 6) { // Non siamo ancora weekend
+    $startDate = date("Ymd", strtotime("next saturday"));
+    $endDate = date("Ymd", strtotime("next sunday"));
+  } else {
+    if (date("w", time()) == 6) {
+      $startDate = date("Ymd", time());
+      $endDate = date("Ymd", strtotime("next sunday"));
+    } else
+      $startDate = $endDate = date("Ymd", time());
+  }
+  return array(
+    "start" => $startDate,
+    "end"   => $endDate
+  );
+});
+
 Flight::map("cache", function ($key, $callback, $expire) {
   if ($entries = apc_fetch(md5($key)))
     return $entries;

@@ -24,6 +24,16 @@ Flight::route('GET /events/@id', function($id) {
   Flight::json($data);
 });
 
+Flight::route('GET /events/filter/weekend', function() {
+  $weekendDates = Flight::getWeekendDates();
+  $sql = "SELECT " . Flight::get("event_fields") . " FROM Query_Dettaglio WHERE Annullato=0 AND DTSTART >= {$weekendDates["start"]} AND DTFINE <= {$weekendDates["start"]};";
+//  $sql = "SELECT " . Flight::get("event_fields") . " FROM Query_Dettaglio WHERE Annullato=0 AND DT;";
+  $data = Flight::query($sql);
+
+  Flight::json($data);
+});
+
+
 
 
 Flight::start();
