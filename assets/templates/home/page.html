@@ -1,17 +1,17 @@
-<div class="row mbl">
-    <div class="col-sm-9">
-        <ul class="nav nav-tabs nav-">
-            <li class="active"><a href="#">Eventi di oggi</a></li>
-            <li><a href="#">Eventi nel Week end</a></li>
-            <li><a href="#">Vicino a me (mappa)</a></li>
-        </ul>
-    </div>
-    <div class="col-sm-3">
-        <small class="pull-right">23423 eventi questa settimana</small>
-    </div>
-</div>
+<!--<div class="row mbl">-->
+    <!--<div class="col-sm-9">-->
+        <!--<ul class="nav nav-tabs nav-">-->
+            <!--<li class="active"><a href="#">Eventi di oggi</a></li>-->
+            <!--<li><a href="#">Eventi nel Week end</a></li>-->
+            <!--<li><a href="#">Vicino a me (mappa)</a></li>-->
+        <!--</ul>-->
+    <!--</div>-->
+    <!--<div class="col-sm-3">-->
+        <!--<small class="pull-right">23423 eventi questa settimana</small>-->
+    <!--</div>-->
+<!--</div>-->
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-9 center-view">
         <p ng-show="loading == true" class="mal text-center">Caricamento in corso ...</p>
         <div ng-show="loading == false">
             <div ng-repeat="(id,event) in events">
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-3 side-view">
         <div class="panel panel-info">
             <div class="panel-heading">Province</div>
             <p ng-show="loadingProvince == true" class="mal text-center">Caricamento in corso ...</p>

@@ -15,5 +15,10 @@ Flight::map("query", function ($sql) {
       'content' => http_build_query( array('sql'=>$sql))
     )
   ));
-  return json_decode(file_get_contents("http://www.nonsocosafare.it/api/run.asp", true, $context));
+  $entries = json_decode(file_get_contents("http://www.nonsocosafare.it/api/run.asp", true, $context));
+  $entries["cached"] = false;
+
+  apc_add( Flight::toKeyValue($sql), $entries, 60*60*2);  // Cache for 2 hours
+  return $entries;
+
 });

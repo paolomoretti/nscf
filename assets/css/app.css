@@ -480,21 +480,44 @@ pre {
     A set of useful LESS mixins
     More info at: http://lesselements.com
   ---------------------------------------------------*/
-.header {
+.header-region {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 10;
+  background-color: #67ce12;
+  border-top: 6px solid #44880c;
 }
-.header .navigation nav {
+.header-region .navigation nav {
   background: #67ce12;
   color: #fff;
+  border: 0;
+  margin-bottom: -1px;
+  margin-top: 10px;
+  min-height: inherit;
 }
-.header .navigation nav .nav a {
+.header-region .navigation nav .navbar-collapse .navbar-btn {
+  margin: 0;
+}
+.header-region .navigation nav .nav {
   color: #fff;
 }
-.header .navigation nav .navbar-brand {
+.header-region .navigation nav .nav li a {
+  color: #ffffff;
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 12px 20px;
+}
+.header-region .navigation nav .nav li.active {
+  background-color: #ffffff;
+}
+.header-region .navigation nav .nav li.active a {
+  background-color: #ffffff;
+  color: #67ce12;
+}
+.header-region .navigation nav .navbar-brand {
   margin: 0;
 }
 .event-item {
@@ -583,6 +606,9 @@ pre {
 html {
   height: 100%;
   width: 100%;
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
 }
 html body {
   height: 100%;
@@ -606,17 +632,21 @@ html body > .container-fluid .main-region {
 html body > .container-fluid .main-region .main-view {
   height: 100%;
   width: 100%;
-  padding: 15px;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 1;
+  position: relative;
+  background-color: #e3e3e3;
 }
 html body > .container-fluid .main-region .main-view:after {
   content: "";
   display: table;
   clear: both;
 }
-html body > .container-fluid .footer {
+html body > .container-fluid .main-region .main-view .center-view {
+  background-color: #ffffff;
+}
+html body > .container-fluid .footer-region {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -625,16 +655,16 @@ html body > .container-fluid .footer {
   z-index: 9;
   box-shadow: 0 -6px 20px #cccccc;
 }
-html body > .container-fluid .footer .row {
+html body > .container-fluid .footer-region .row {
   background: #f5f5f5;
 }
-html body > .container-fluid .footer .row .col-sm-12 {
+html body > .container-fluid .footer-region .row .col-sm-12 {
   text-align: center;
 }
-html body > .container-fluid .footer .row .col-sm-12 p {
+html body > .container-fluid .footer-region .row .col-sm-12 p {
   font-size: .8em;
 }
-html body > .container-fluid .footer .row .col-sm-12 .breadcrumb {
+html body > .container-fluid .footer-region .row .col-sm-12 .breadcrumb {
   padding: 8px 0;
   margin-bottom: 6px;
 }

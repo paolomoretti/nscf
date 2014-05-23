@@ -10,14 +10,15 @@ Header = ($scope, $location)->
 
   $scope.description = "Molte proposte per passare il tempo nel Nord-Est. Sfruttate al meglio il vostro tempo libero..."
 
-  #  $scope.$on "$routeChangeStart", (next, current)->
-  #    $scope.filterName = current.params.filterType if current.params.filterType?
-  #
-  #  $scope.filterName = $routeParams.filterType if $routeParams.filterType?
-  #  console.log "$scope.filterName", $scope.filterName, $routeParams
-
   $scope.getActiveSection = ->
     return $location.$$url.split("/events/filter/")[1] if $location.$$url.indexOf "/events/filter/" is 0
+
+  $(".main-region").css "padding-top", $(".header-region").outerHeight()
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+Footer = ->
+  $(".main-region").css "padding-bottom", $(".footer-region").height()
 
 #-----------------------------------------------------------------------------------------------------------------------
 

@@ -14,6 +14,9 @@
 html {
   height: 100%;
   width: 100%;
+  font-family: 'helvetica neue',helvetica,arial,sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
 
   body {
     height: 100%;
@@ -38,14 +41,19 @@ html {
           .clearfix;
           height: 100%;
           width: 100%;
-          padding: 15px;
           overflow-y: auto;
           overflow-x: hidden;
           z-index: @zindex-main-view;
+          position: relative;
+          background-color: @color-sideview-bg;
+
+          .center-view {
+            background-color: @color-white;
+          }
         }
       }
 
-      .footer {
+      .footer-region {
         position: absolute;
         bottom: 0;
         left: 0;
