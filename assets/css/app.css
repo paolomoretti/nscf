@@ -644,7 +644,9 @@ html body > .container-fluid .main-region .main-view:after {
   clear: both;
 }
 html body > .container-fluid .main-region .main-view .center-view {
+  position: relative;
   background-color: #ffffff;
+  padding: 10px 25px;
 }
 html body > .container-fluid .footer-region {
   position: absolute;

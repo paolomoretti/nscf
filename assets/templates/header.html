@@ -20,9 +20,9 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Eventi di oggi</a></li>
-                            <li><a href="#">Weekend</a></li>
-                            <li><a href="#">Vicino a me</a></li>
+                            <li ng-class="{'active': activeSection == 'home'}"><a href="#/">Eventi di oggi</a></li>
+                            <li ng-class="{'active': activeSection == 'weekend'}"><a href="#/events/filter/weekend">Weekend</a></li>
+                            <li ng-class="{'active': activeSection == 'nearby'}"><a href="#/events/filter/nearby">Vicino a me</a></li>
                         </ul>
                         <button type="button" class="btn btn-default navbar-btn pull-right">Sign in</button>
                     </div>

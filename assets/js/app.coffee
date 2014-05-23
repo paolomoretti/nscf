@@ -14,7 +14,7 @@ Nscf.config [
 
     # Events
     $routeProvider.when "/events/filter/:filterType",
-      templateUrl: "assets/templates/events/events.html"
+      templateUrl: "assets/templates/events/page.html"
       controller: "Events"
 
     $routeProvider.when "/events/:id",
