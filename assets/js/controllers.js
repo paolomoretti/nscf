@@ -30,10 +30,16 @@ Home = function($scope, $http) {
 
 Events = function($scope, $routeParams, $http) {
   $scope.loading = true;
-  return $http.get(Nscf.apiUrl + "events/filter/" + $scope.activeSection).success(function(data) {
+  $http.get(Nscf.apiUrl + "events/filter/" + $scope.activeSection).success(function(data) {
     $scope.events = data;
     return $scope.loading = false;
   });
+  $(".events-container .nav-tabs a").click(function(event) {
+    event.preventDefault();
+    return $(this).tab("show");
+  });
+  $("html").addClass("main-view-static");
+  return $(".events-container .tab-content").height($(".main-view").height() - $(".events-container .nav-tabs").outerHeight());
 };
 
 Event = function($scope, $routeParams, $http) {

@@ -204,6 +204,12 @@ a {
     A set of useful LESS mixins
     More info at: http://lesselements.com
   ---------------------------------------------------*/
+.tab-content {
+  overflow-y: auto;
+}
+.tab-content .tab-pane {
+  padding: 0 0 40px 0;
+}
 .event-item {
   -webkit-transition: background-color 0.3s ease-out;
   -moz-transition: background-color 0.3s ease-out;
@@ -264,6 +270,16 @@ a {
 }
 .event-item .event-image:hover .date-container {
   opacity: .2;
+}
+.event-item .event-map {
+  width: 15%;
+  margin: 0 0 0 5px;
+  background-color: #ededed;
+  position: relative;
+}
+.event-item .event-map img {
+  width: 100%;
+  height: 100%;
 }
 .event-item p {
   font-family: 'helvetica neue', helvetica, arial, sans-serif;

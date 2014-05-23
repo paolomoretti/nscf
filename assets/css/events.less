@@ -2,6 +2,15 @@
 @import "helpers";
 @import "elements";
 
+
+.tab-content {
+  overflow-y: auto;
+
+  .tab-pane {
+    padding: 0 0 40px 0;
+  }
+}
+
 .event-item {
   .clearfix;
   .single-transition(background-color, .3s);
@@ -56,6 +65,18 @@
       .date-container {
         opacity: .2;
       }
+    }
+  }
+
+  .event-map {
+    width: 15%;
+    margin: 0 0 0 5px;
+    background-color: darken(@color-white, 7);
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
     }
   }
 

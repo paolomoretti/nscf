@@ -38,6 +38,14 @@ Events = ($scope, $routeParams, $http)->
     $scope.events = data
     $scope.loading = false
 
+  $(".events-container .nav-tabs a").click (event)->
+    do event.preventDefault
+
+    $(this).tab "show"
+
+  $("html").addClass "main-view-static"
+  $(".events-container .tab-content").height $(".main-view").height()-$(".events-container .nav-tabs").outerHeight()
+
 
 #-----------------------------------------------------------------------------------------------------------------------
 
