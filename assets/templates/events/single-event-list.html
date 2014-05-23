@@ -1,5 +1,5 @@
 <a class="event-item" href="#/events/{{event.id}}">
-    <div class="event-image pull-left" style="background-image: url('{{event.image_hi}}')">
+    <div class="event-image pull-left" style="background-image: url('http://dev.nonsocosafare.it/api/events/{{event.id}}/image')">
         <div class="date-container" ng-class="{'single-date':event.DataFine == null}">
             <div date="{{event.DataInizio}}" ng-show="event.DataInizio != null"></div>
             <div date="{{event.DataFine}}" ng-show="event.DataFine != null"></div>
