@@ -706,6 +706,7 @@ html body > .container-fluid .main-region .main-view .side-view {
   -moz-transition: width 0.3s ease-out;
   -o-transition: width 0.3s ease-out;
   transition: width 0.3s ease-out;
+  padding: 0;
 }
 html body > .container-fluid .footer-region {
   position: absolute;

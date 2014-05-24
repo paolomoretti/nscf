@@ -90,6 +90,9 @@ EventDetails = ($scope)->
 
   $scope.event = false
 
+  $scope.getEventImage = ->
+    Nscf.apiUrl + "events/" + $scope.event.id + "/image"
+
   $scope.$on "currentevent:update", (_event, evento)->
     console.log "EventDetails", evento
     $scope.event = evento

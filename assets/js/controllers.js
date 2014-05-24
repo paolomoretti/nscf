@@ -74,6 +74,9 @@ SingleEventList = function($rootScope, $element, $scope) {
 
 EventDetails = function($scope) {
   $scope.event = false;
+  $scope.getEventImage = function() {
+    return Nscf.apiUrl + "events/" + $scope.event.id + "/image";
+  };
   return $scope.$on("currentevent:update", function(_event, evento) {
     console.log("EventDetails", evento);
     return $scope.event = evento;
