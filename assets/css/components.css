@@ -1,3 +1,6 @@
+.nav.nav-tabs {
+  margin: 0 30px;
+}
 .nav.nav-tabs li a {
   background: #fafafa;
   color: #67ce12;

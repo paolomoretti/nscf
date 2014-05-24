@@ -24,7 +24,7 @@ html {
     background: url(../images/bggreydiag.gif);
     overflow: hidden;
 
-    > .container-fluid   {
+    > .container-fluid {
       margin: 0 20px;
       position: relative;
       height: 100%;
@@ -50,7 +50,15 @@ html {
           .center-view {
             position: relative;
             background-color: @color-white;
-            padding: 10px 25px;
+            padding: 10px 0;
+            width: 100%;
+            overflow: auto;
+            .single-transition(width, .3s);
+          }
+
+          .side-view {
+            width: 0%;
+            .single-transition(width, .3s);
           }
         }
       }
@@ -87,6 +95,17 @@ html {
   &.main-view-static {
     body .container-fluid .main-view {
       overflow: hidden;
+    }
+  }
+
+  &.has-event-open {
+    body > .container-fluid .main-region .main-view {
+      .center-view {
+        width: 40%;
+      }
+      .side-view {
+        width: 60%;
+      }
     }
   }
 }

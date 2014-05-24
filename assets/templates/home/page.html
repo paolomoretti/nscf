@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-9 center-view">
+    <div class="col-sm-5 center-view">
         <p ng-show="loading == true" class="mal text-center">Caricamento in corso ...</p>
         <div ng-show="loading == false">
             <div ng-repeat="(id,event) in events">
@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-3 side-view">
-
+    <div class="col-sm-7 side-view">
+        <ng-include src="'assets/templates/events/single-event-detail.html'"></ng-include>
     </div>
 </div>
