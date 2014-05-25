@@ -1,35 +1,42 @@
 <div class="event-detail" ng-show="event" ng-controller="EventDetails">
 
-    <div class="event-image" style="background-image: url('{{getEventImage()}}')">
-        <br/><br/><br/>
-        <h2 class="text-primary mtn ptl">{{event.nome}}</h2>
+    <div class="row">
+        <div class="col-sm-12 header">
+            <div class="title">
+                <h2 class="text-primary">{{event.nome}}</h2>
+            </div>
+            <div class="event-image" style="background-image: url({{getEventImage()}})">
+                <img src="{{getEventImage()}}" alt=""/>
+            </div>
+            <ul class="event-social">
+                <li ng-show="event.evento_facebook != ''">
+                    <a href="{{event.evento_facebook}}" title="Apri evento Facebook" target="_blank" icon="facebook-square"></a>
+                </li>
+                <li ng-show="event.evento_twitter != ''">
+                    <a href="{{event.evento_twitter}}" title="Apri evento Twitter" target="_blank" icon="twitter-square"></a>
+                </li>
+                <li ng-show="event.evento_googleplus != ''">
+                    <a href="{{event.evento_googleplus}}" title="Apri evento Google Plus" target="_blank" icon="google-plus-square"></a>
+                </li>
+                <li ng-show="event.evento_foursquare != ''">
+                    <a href="{{event.evento_foursquare}}" title="Apri evento Foursquare" target="_blank" icon="foursquare"></a>
+                </li>
+                <li ng-show="event.evento_myspace != ''">
+                    <a href="{{event.evento_myspace}}" title="Apri evento Myspace" target="_blank" icon="maxcdn"></a>
+                </li>
+                <li ng-show="event.evento_link != ''">
+                    <a href="{{event.evento_link}}" title="Apri sito evento" target="_blank" icon="external-link-square"></a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="event-details">
-        <div date="{{event.DataInizio}}" ng-show="event.DataInizio != null"></div>
-        <div date="{{event.DataFine}}" ng-show="event.DataFine != null"></div>
 
-        <p class="event-luogo">{{event.luogo}}</p>
-
-        <ul class="event-social">
-            <li ng-show="event.evento_facebook != ''">
-                <a href="{{event.evento_facebook}}" title="Apri evento Facebook" target="_blank" icon="facebook-square"></a>
-            </li>
-            <li ng-show="event.evento_twitter != ''">
-                <a href="{{event.evento_twitter}}" title="Apri evento Twitter" target="_blank" icon="twitter-square"></a>
-            </li>
-            <li ng-show="event.evento_googleplus != ''">
-                <a href="{{event.evento_googleplus}}" title="Apri evento Google Plus" target="_blank" icon="google-plus-square"></a>
-            </li>
-            <li ng-show="event.evento_foursquare != ''">
-                <a href="{{event.evento_foursquare}}" title="Apri evento Foursquare" target="_blank" icon="foursquare"></a>
-            </li>
-            <li ng-show="event.evento_myspace != ''">
-                <a href="{{event.evento_myspace}}" title="Apri evento Myspace" target="_blank" icon="maxcdn"></a>
-            </li>
-            <li ng-show="event.evento_link != ''">
-                <a href="{{event.evento_link}}" title="Apri sito evento" target="_blank" icon="external-link-square"></a>
-            </li>
-        </ul>
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="event-luogo">{{event.luogo}}</p>
+            <div id="map"></div>
+        </div>
     </div>
+
 
 </div>

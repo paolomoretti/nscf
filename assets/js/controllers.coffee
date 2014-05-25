@@ -43,6 +43,7 @@ Home = ($scope, $http)->
 
   $("html").addClass "main-view-static"
   $(".center-view").height $(".main-view").height()
+  $(".side-view").height $(".main-view").height()
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -59,7 +60,11 @@ Events = ($scope, $routeParams, $http)->
     $(this).tab "show"
 
   $("html").addClass "main-view-static"
-  $(".events-container .tab-content").height $(".main-view").height()-$(".events-container .nav-tabs").outerHeight()
+
+  mainRegionHeight = $(".main-view").height()
+
+  $(".events-container .tab-content").height mainRegionHeight-$(".events-container .nav-tabs").outerHeight()
+  $(".side-view").height mainRegionHeight
 
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -82,11 +87,14 @@ SingleEventList = ($rootScope, $element, $scope)->
       $element.removeClass "active"
     true
 
+  $element.find(".event-social a").on "click", (event)->
+    do event.stopPropagation
+
 
 #-----------------------------------------------------------------------------------------------------------------------
 
 
-EventDetails = ($scope)->
+EventDetails = ($scope, $element)->
 
   $scope.event = false
 
@@ -94,8 +102,26 @@ EventDetails = ($scope)->
     Nscf.apiUrl + "events/" + $scope.event.id + "/image"
 
   $scope.$on "currentevent:update", (_event, evento)->
-    console.log "EventDetails", evento
+    console.log "EVENTO", evento
     $scope.event = evento
+    do $scope.createMap
+
+  $scope.createMap = ->
+    gps = $scope.event.GPS_L.split ","
+    eventLatlng = new google.maps.LatLng(gps[0], gps[1])
+
+    options =
+      zoom: 10
+      center: eventLatlng
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+
+    $scope.map = new google.maps.Map($element.find("#map")[0], options)
+
+    marker = new google.maps.Marker
+      position: eventLatlng,
+      map: $scope.map,
+      title: $scope.event.nome
+
 
 
 #-----------------------------------------------------------------------------------------------------------------------

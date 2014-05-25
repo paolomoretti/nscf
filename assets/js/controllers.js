@@ -36,10 +36,12 @@ Home = function($scope, $http) {
     return $scope.loading = false;
   });
   $("html").addClass("main-view-static");
-  return $(".center-view").height($(".main-view").height());
+  $(".center-view").height($(".main-view").height());
+  return $(".side-view").height($(".main-view").height());
 };
 
 Events = function($scope, $routeParams, $http) {
+  var mainRegionHeight;
   $scope.loading = true;
   $http.get(Nscf.apiUrl + "events/filter/" + $scope.activeSection).success(function(data) {
     $scope.events = data;
@@ -50,7 +52,9 @@ Events = function($scope, $routeParams, $http) {
     return $(this).tab("show");
   });
   $("html").addClass("main-view-static");
-  return $(".events-container .tab-content").height($(".main-view").height() - $(".events-container .nav-tabs").outerHeight());
+  mainRegionHeight = $(".main-view").height();
+  $(".events-container .tab-content").height(mainRegionHeight - $(".events-container .nav-tabs").outerHeight());
+  return $(".side-view").height(mainRegionHeight);
 };
 
 SingleEventList = function($rootScope, $element, $scope) {
@@ -60,7 +64,7 @@ SingleEventList = function($rootScope, $element, $scope) {
   $scope.getEventImage = function() {
     return Nscf.apiUrl + "events/" + $scope.event.id + "/image";
   };
-  return $scope.openEvent = function() {
+  $scope.openEvent = function() {
     if ($element.hasClass("active") === false) {
       $scope.$emit("event:open", $scope.event);
       $element.addClass("active");
@@ -70,17 +74,37 @@ SingleEventList = function($rootScope, $element, $scope) {
     }
     return true;
   };
+  return $element.find(".event-social a").on("click", function(event) {
+    return event.stopPropagation();
+  });
 };
 
-EventDetails = function($scope) {
+EventDetails = function($scope, $element) {
   $scope.event = false;
   $scope.getEventImage = function() {
     return Nscf.apiUrl + "events/" + $scope.event.id + "/image";
   };
-  return $scope.$on("currentevent:update", function(_event, evento) {
-    console.log("EventDetails", evento);
-    return $scope.event = evento;
+  $scope.$on("currentevent:update", function(_event, evento) {
+    console.log("EVENTO", evento);
+    $scope.event = evento;
+    return $scope.createMap();
   });
+  return $scope.createMap = function() {
+    var eventLatlng, gps, marker, options;
+    gps = $scope.event.GPS_L.split(",");
+    eventLatlng = new google.maps.LatLng(gps[0], gps[1]);
+    options = {
+      zoom: 10,
+      center: eventLatlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    $scope.map = new google.maps.Map($element.find("#map")[0], options);
+    return marker = new google.maps.Marker({
+      position: eventLatlng,
+      map: $scope.map,
+      title: $scope.event.nome
+    });
+  };
 };
 
 Event = function($scope, $routeParams, $http) {

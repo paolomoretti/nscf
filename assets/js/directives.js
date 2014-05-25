@@ -20,6 +20,7 @@ Nscf.directive("date", function() {
     link: function(scope, element, attrs) {
       return attrs.$observe('date', function(date) {
         var myDate;
+        element.empty();
         myDate = moment(date, "DD-MM-YYYY").lang("it");
         element.append($('<span class="dd">' + myDate.format('ddd') + '</span>'));
         element.append($('<span class="gg">' + myDate.format('D') + '</span>'));

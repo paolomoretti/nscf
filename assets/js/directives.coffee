@@ -14,6 +14,8 @@ Nscf.directive "icon", ->
 Nscf.directive "date", ->
   link: (scope, element, attrs)->
     attrs.$observe 'date', (date)->
+      do element.empty
+
       myDate = moment(date, "DD-MM-YYYY").lang("it")
       element.append $('<span class="dd">'+myDate.format('ddd')+'</span>')
       element.append $('<span class="gg">'+myDate.format('D')+'</span>')
