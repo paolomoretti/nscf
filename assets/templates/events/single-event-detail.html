@@ -1,6 +1,7 @@
 <div class="event-detail" ng-show="event" ng-controller="EventDetails">
 
-    <div class="header" style="background-image: url({{getEventImage()}})">
+    <div ng-click="toggleExpandPoster($event)" class="header" style="background-image: url({{getEventImage()}})">
+        <img src="{{getEventImage()}}" class="poster" alt=""/>
         <h2 class="title text-primary">{{event.nome}}</h2>
     </div>
 

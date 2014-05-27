@@ -236,56 +236,10 @@ a {
   display: table;
   clear: both;
 }
-.event-item .event-image {
-  background-size: cover;
-  width: 100px;
-  height: 100px;
-  margin: 0px -5px;
-  background-color: #ededed;
-  position: absolute;
-  cursor: pointer;
-}
-.event-item .event-image:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  background-color: #ffffff;
-  opacity: .6;
-  content: "";
-  -webkit-transition: opacity 0.3s ease-out;
-  -moz-transition: opacity 0.3s ease-out;
-  -o-transition: opacity 0.3s ease-out;
-  transition: opacity 0.3s ease-out;
-}
-.event-item .event-image .date-container {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  width: 100%;
-  text-align: right;
-  z-index: 3;
-  -webkit-transition: opacity 0.3s ease-out;
-  -moz-transition: opacity 0.3s ease-out;
-  -o-transition: opacity 0.3s ease-out;
-  transition: opacity 0.3s ease-out;
-}
-.event-item .event-image .date-container .date {
-  margin-left: 4px;
-}
-.event-item .event-image:hover:after {
-  opacity: 0;
-}
-.event-item .event-image:hover .date-container {
-  opacity: .2;
-}
 .event-item .event-details {
   margin-left: 100px;
-  padding: 0 0 10px 10px;
+  padding: 0 0 0 10px;
   overflow: hidden;
-  min-height: 100px;
 }
 .event-item .event-details h4 {
   font-family: 'helvetica neue', helvetica, arial, sans-serif;
@@ -303,6 +257,7 @@ a {
   list-style-type: none;
   margin-left: 0;
   padding: 0;
+  margin-bottom: 0;
 }
 .event-item .event-details .event-social li {
   list-style-type: none;
@@ -313,7 +268,7 @@ a {
   font-size: 20px;
 }
 .event-item.active {
-  background-color: #67ce12;
+  background: #67ce12;
 }
 .event-item.active .event-details h4 {
   color: #ffffff;
@@ -346,7 +301,7 @@ html.has-event-open .center-view {
   box-shadow: inset 5px -11px 25px #333333;
 }
 html.has-event-open .center-view .event-item {
-  padding: 0 25px 0 20px;
+  padding: 8px 25px 10px 25px;
 }
 html.has-event-open .center-view .event-item .event-details {
   padding: 0 0 10px 2px;
@@ -368,6 +323,8 @@ html.has-event-open .center-view .event-item .event-details .event-luogo {
   position: relative;
   min-height: 130px;
   border-bottom: 4px solid #67ce12;
+  text-align: center;
+  cursor: nesw-resize;
 }
 .event-detail .header:before {
   position: absolute;
@@ -379,6 +336,10 @@ html.has-event-open .center-view .event-item .event-details .event-luogo {
   background: #ffffff;
   opacity: .8;
   z-index: 1;
+  -webkit-transition: opacity 0.3s ease-out;
+  -moz-transition: opacity 0.3s ease-out;
+  -o-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
 }
 .event-detail .header h2.title {
   z-index: 2;
@@ -393,6 +354,18 @@ html.has-event-open .center-view .event-item .event-details .event-luogo {
   color: #0c0c0c;
   text-align: left;
   text-shadow: 2px 2px 1px #eee;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.event-detail .header .poster {
+  opacity: 0;
+  height: 130px;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .event-detail .content {
   padding: 10px 35px 20px 20px;
@@ -417,21 +390,24 @@ html.has-event-open .center-view .event-item .event-details .event-luogo {
 .event-detail .content .table-details td {
   font-size: .9em;
 }
-.event-detail .event-image {
+.event-detail .content #map {
   width: 100%;
-  background-size: contain;
-  height: 200px;
-  background-repeat: no-repeat;
-  background-position: center center;
+  height: 250px;
 }
-.event-detail .event-image img {
-  width: 100%;
-  display: none;
+.event-detail.has-poster-expanded .header {
+  cursor: zoom-out;
 }
-.event-detail .event-luogo {
-  text-align: center;
+.event-detail.has-poster-expanded .header .poster {
+  position: relative;
+  opacity: 1;
+  max-height: 400px;
+  height: auto;
+  z-index: 5;
 }
-.event-detail #map {
-  width: 100%;
-  height: 400px;
+.event-detail.has-poster-expanded .header h2 {
+  position: relative;
+  z-index: 8;
+  background: rgba(103, 206, 18, 0.7);
+  margin: 0;
+  padding: 12px 20px;
 }

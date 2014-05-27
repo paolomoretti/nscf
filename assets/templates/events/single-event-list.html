@@ -1,12 +1,12 @@
 <div ng-click="openEvent()" class="event-item" ng-class="{'active': currentEvent.id == event.id}" ng-controller="SingleEventList" ng-init="init(event)">
 
-    <div class="event-image" style="background-image: url('{{getEventImage()}}')">
-        <div class="date-container" ng-class="{'single-date':event.DataFine == null}">
-            <div date="{{event.DataInizio}}" ng-show="event.DataInizio != null"></div>
-            <div date="{{event.DataFine}}" ng-show="event.DataFine != null"></div>
-        </div>
-    </div>
-    <div class="event-details">
+    <!--<div class="event-image" style="background-image: url('{{getEventImage()}}')">-->
+        <!--<div class="date-container" ng-class="{'single-date':event.DataFine == null}">-->
+            <!--<div date="{{event.DataInizio}}" ng-show="event.DataInizio != null"></div>-->
+            <!--<div date="{{event.DataFine}}" ng-show="event.DataFine != null"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="event-details" style="margin-left: 0">
         <h4 class="text-primary" title="{{event.nome}}">{{event.nome}}</h4>
         <p class="event-luogo">{{event.luogo}}</p>
         <ul class="event-social">

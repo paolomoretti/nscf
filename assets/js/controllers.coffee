@@ -37,10 +37,7 @@ Header = ($scope, $element, $rootScope, $location, $http, $q)->
   $scope.searching = false
   $scope.searchResults = []
 
-  $scope.doSearch = (event)->
-    return $scope.searchResults = [] if $(event.target).val().trim() is ""
-    $scope.searchResults = $scope.getResults $(event.target).val().trim() if event.which not in [13, 27, 37, 38, 39, 40]
-
+  # Events
   $scope.$on "event:key:down", ->
     $scope.highlightResults 1 if $scope.searchResults.length > 0
 
@@ -60,6 +57,11 @@ Header = ($scope, $element, $rootScope, $location, $http, $q)->
   $scope.$on "search:results:reset", ->
     $scope.$emit "search:results:hide"
     $element.find("input.events-search").val ""
+
+  # Methods
+  $scope.doSearch = (event)->
+    return $scope.searchResults = [] if $(event.target).val().trim() is ""
+    $scope.searchResults = $scope.getResults $(event.target).val().trim() if event.which not in [13, 27, 37, 38, 39, 40]
 
   $scope.highlightResults = (dir)->
     selected = if $element.find(".search-result.selected").size() > 0 then $element.find(".search-result.selected")[if dir is 1 then "next" else "prev"]() else $element.find(".search-result:first")
@@ -161,12 +163,20 @@ EventDetails = ($scope, $element)->
 
   $scope.event = false
 
-  $scope.getEventImage = ->
-    Nscf.apiUrl + "events/" + $scope.event.id + "/image"
 
+  # Events
   $scope.$on "currentevent:update", (_event, evento)->
     $scope.event = evento
     do $scope.createMap
+
+  $scope.toggleExpandPoster = (event)->
+    do event.preventDefault
+
+    $element.toggleClass "has-poster-expanded"
+
+  # Methods
+  $scope.getEventImage = ->
+    Nscf.apiUrl + "events/" + $scope.event.id + "/image"
 
   $scope.createMap = ->
     gps = $scope.event.GPS_L.split ","
@@ -179,7 +189,7 @@ EventDetails = ($scope, $element)->
 
     $scope.map = new google.maps.Map($element.find("#map")[0], options)
 
-    marker = new google.maps.Marker
+    new google.maps.Marker
       position: eventLatlng,
       map: $scope.map,
       title: $scope.event.nome

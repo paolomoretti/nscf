@@ -47,15 +47,6 @@ Header = function($scope, $element, $rootScope, $location, $http, $q) {
   $(".main-region").css("padding-top", $(".header-region").outerHeight());
   $scope.searching = false;
   $scope.searchResults = [];
-  $scope.doSearch = function(event) {
-    var _ref;
-    if ($(event.target).val().trim() === "") {
-      return $scope.searchResults = [];
-    }
-    if ((_ref = event.which) !== 13 && _ref !== 27 && _ref !== 37 && _ref !== 38 && _ref !== 39 && _ref !== 40) {
-      return $scope.searchResults = $scope.getResults($(event.target).val().trim());
-    }
-  };
   $scope.$on("event:key:down", function() {
     if ($scope.searchResults.length > 0) {
       return $scope.highlightResults(1);
@@ -80,6 +71,15 @@ Header = function($scope, $element, $rootScope, $location, $http, $q) {
     $scope.$emit("search:results:hide");
     return $element.find("input.events-search").val("");
   });
+  $scope.doSearch = function(event) {
+    var _ref;
+    if ($(event.target).val().trim() === "") {
+      return $scope.searchResults = [];
+    }
+    if ((_ref = event.which) !== 13 && _ref !== 27 && _ref !== 37 && _ref !== 38 && _ref !== 39 && _ref !== 40) {
+      return $scope.searchResults = $scope.getResults($(event.target).val().trim());
+    }
+  };
   $scope.highlightResults = function(dir) {
     var elemPos, selected, st;
     selected = $element.find(".search-result.selected").size() > 0 ? $element.find(".search-result.selected")[dir === 1 ? "next" : "prev"]() : $element.find(".search-result:first");
@@ -173,15 +173,19 @@ SingleEventList = function($rootScope, $element, $scope, $location) {
 
 EventDetails = function($scope, $element) {
   $scope.event = false;
-  $scope.getEventImage = function() {
-    return Nscf.apiUrl + "events/" + $scope.event.id + "/image";
-  };
   $scope.$on("currentevent:update", function(_event, evento) {
     $scope.event = evento;
     return $scope.createMap();
   });
+  $scope.toggleExpandPoster = function(event) {
+    event.preventDefault();
+    return $element.toggleClass("has-poster-expanded");
+  };
+  $scope.getEventImage = function() {
+    return Nscf.apiUrl + "events/" + $scope.event.id + "/image";
+  };
   return $scope.createMap = function() {
-    var eventLatlng, gps, marker, options;
+    var eventLatlng, gps, options;
     gps = $scope.event.GPS_L.split(",");
     eventLatlng = new google.maps.LatLng(gps[0], gps[1]);
     options = {
@@ -190,7 +194,7 @@ EventDetails = function($scope, $element) {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     $scope.map = new google.maps.Map($element.find("#map")[0], options);
-    return marker = new google.maps.Marker({
+    return new google.maps.Marker({
       position: eventLatlng,
       map: $scope.map,
       title: $scope.event.nome
