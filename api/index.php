@@ -24,6 +24,13 @@ Flight::route('GET /events/@id', function($id) {
   Flight::json($data);
 });
 
+Flight::route('GET /events/search/@key', function($key) {
+  $sql = "SELECT " . Flight::get("event_fields") . " FROM Query_Dettaglio WHERE NomeEventoSuperEsteso LIKE '%$key%'";
+  $data = Flight::query($sql);
+
+  Flight::json($data);
+});
+
 Flight::route('GET /events/@id/image', function($id) {
   $sql = "SELECT " . Flight::get("event_fields") . " FROM Query_Dettaglio WHERE id=$id";
   $data = Flight::query($sql);
