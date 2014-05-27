@@ -20,6 +20,9 @@ Flight::set("event_fields", "id, NomeEventoSuperEsteso as nome, data, EM, ES, FI
           Evento_Myspace_Link as evento_myspace, Evento_Twitter_Link as evento_twitter, Evento_GooglePlus_Link as evento_googleplus, Evento_Foursquare_Link as evento_foursquare,
           Evento_Web_Link as evento_link, Evento_Facebook_Link as evento_facebook,
 
+          ID_Animazione, Animazione, AnimazioneNome, Animazione_Web_Link, Animazione_JPG,
+          Animazione_Facebook_Link, Animazione_Myspace_Link, Animazione_Twitter_Link, Animazione_Miglior_Link, Animazione_GooglePlus_Link,
+
           ID_ilMeteo as meteo_id,
           JPG_Miglior_Link as image_hi, DataInizio, DataFine, OraInizio, Annullato, OraFine, GPS_L, NomeLuogo, Localita");
 
