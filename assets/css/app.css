@@ -726,15 +726,60 @@ html.has-event-open .center-view .event-item .event-details h4 {
 html.has-event-open .center-view .event-item .event-details .event-luogo {
   font-size: .9em;
 }
-.event-detail {
-  padding: 20px 30px 20px 20px;
+.event-detail .header {
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  min-height: 130px;
+  border-bottom: 4px solid #67ce12;
 }
-.event-detail .title h2 {
-  font-size: 2em;
-  padding: 0;
-  margin: 0 0 20px 0;
-  font-weight: 300;
+.event-detail .header:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background: #ffffff;
+  opacity: .8;
+  z-index: 1;
+}
+.event-detail .header h2.title {
+  z-index: 2;
+  position: absolute;
+  left: 0px;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 20px 0;
+  font-size: 1.7em;
+  font-weight: 400;
   text-align: center;
+  color: #0c0c0c;
+  text-align: left;
+  text-shadow: 2px 2px 1px #eee;
+}
+.event-detail .content {
+  padding: 10px 35px 20px 20px;
+}
+.event-detail .content .event-social {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.event-detail .content .event-social li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.event-detail .content .event-social li {
+  margin-right: 12px;
+  display: inline-block;
+}
+.event-detail .content .event-social li a {
+  font-size: .9em;
+}
+.event-detail .content .table-details td {
+  font-size: .9em;
 }
 .event-detail .event-image {
   width: 100%;
@@ -787,7 +832,6 @@ html body > .container-fluid .main-region .main-view {
   overflow-x: hidden;
   z-index: 1;
   position: relative;
-  background-color: #e3e3e3;
 }
 html body > .container-fluid .main-region .main-view:after {
   content: "";

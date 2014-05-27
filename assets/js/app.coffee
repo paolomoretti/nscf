@@ -17,9 +17,6 @@ Nscf.config [
       templateUrl: "assets/templates/events/page.html"
       controller: "Events"
 
-    $routeProvider.when "/events/:id",
-      templateUrl: "assets/templates/events/event.html"
-      controller: "Event"
 
 
     # Static pages

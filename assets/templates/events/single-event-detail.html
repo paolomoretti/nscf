@@ -1,42 +1,73 @@
 <div class="event-detail" ng-show="event" ng-controller="EventDetails">
 
-    <div class="row">
-        <div class="col-sm-12 header">
-            <div class="title">
-                <h2 class="text-primary">{{event.nome}}</h2>
-            </div>
-            <div class="event-image" style="background-image: url({{getEventImage()}})">
-                <img src="{{getEventImage()}}" alt=""/>
-            </div>
-            <ul class="event-social">
-                <li ng-show="event.evento_facebook != ''">
-                    <a href="{{event.evento_facebook}}" title="Apri evento Facebook" target="_blank" icon="facebook-square"></a>
-                </li>
-                <li ng-show="event.evento_twitter != ''">
-                    <a href="{{event.evento_twitter}}" title="Apri evento Twitter" target="_blank" icon="twitter-square"></a>
-                </li>
-                <li ng-show="event.evento_googleplus != ''">
-                    <a href="{{event.evento_googleplus}}" title="Apri evento Google Plus" target="_blank" icon="google-plus-square"></a>
-                </li>
-                <li ng-show="event.evento_foursquare != ''">
-                    <a href="{{event.evento_foursquare}}" title="Apri evento Foursquare" target="_blank" icon="foursquare"></a>
-                </li>
-                <li ng-show="event.evento_myspace != ''">
-                    <a href="{{event.evento_myspace}}" title="Apri evento Myspace" target="_blank" icon="maxcdn"></a>
-                </li>
-                <li ng-show="event.evento_link != ''">
-                    <a href="{{event.evento_link}}" title="Apri sito evento" target="_blank" icon="external-link-square"></a>
-                </li>
-            </ul>
-        </div>
+    <div class="header" style="background-image: url({{getEventImage()}})">
+        <h2 class="title text-primary">{{event.nome}}</h2>
     </div>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <p class="event-luogo">{{event.luogo}}</p>
-            <div id="map"></div>
-        </div>
-    </div>
+    <div class="content">
 
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="map"></div>
+            </div>
+            <div class="col-sm-6">
+                <table class="table table-responsive table-details">
+                    <tr>
+                        <td icon="calendar" class="prm"><strong>Data</strong></td>
+                        <td>{{event.data}}</td>
+                    </tr>
+                    <tr>
+                        <td icon="clock-o" class="prm"><strong>Orario</strong></td>
+                        <td>
+                            <span ng-show="event.OraInizio != ''">{{event.OraInizio}}</span>
+                            <span ng-show="event.OraFine != ''">{{event.OraFine}}</span>
+                            <em ng-show="event.OraFine == '' && event.OraInizio == ''">non comunicato</em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td icon="map-marker" class="prm"><strong>Luogo</strong></td>
+                        <td>
+                            <p>{{event.luogo}}</p>
+                            <ul>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td icon="puzzle-piece" class="prm"><strong>Tipo evento</strong></td>
+                        <td>
+                            <ul class="clearlist">
+                                <li ng-show="event.EM"><a href="#" icon="music">Evento musicale</a></li>
+                                <li ng-show="event.ES"><a href="#" icon="trophy">Evento sportivo</a></li>
+                                <li ng-show="event.FI"><a href="#" icon="beer">Fiera</a></li>
+                                <li ng-show="event.MM"><a href="#" icon="eye">Mostra mercato</a></li>
+                                <li ng-show="event.SP"><a href="#" icon="university">Spettacolo</a></li>
+                                <li ng-show="event.FE"><a href="#" icon="users">Festa</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr ng-show="event.evento_facebook != '' || event.evento_twitter != '' || event.evento_googleplus != '' || event.evento_foursquare != '' || event.evento_myspace != ''">
+                        <td icon="bullhorn" class="prm"><strong>Social</strong></td>
+                        <td>
+                            <ul class="clearlist">
+                                <li ng-show="event.evento_facebook != ''"><a href="{{event.evento_facebook}}" title="Apri evento Facebook" target="_blank" icon="facebook-square">Facebook</a> </li>
+                                <li ng-show="event.evento_twitter != ''"><a href="{{event.evento_twitter}}" title="Apri evento Twitter" target="_blank" icon="twitter-square"> Twitter</a> </li>
+                                <li ng-show="event.evento_googleplus != ''"><a href="{{event.evento_googleplus}}" title="Apri evento Google Plus" target="_blank" icon="google-plus-square"> G+</a> </li>
+                                <li ng-show="event.evento_foursquare != ''"><a href="{{event.evento_foursquare}}" title="Apri evento Foursquare" target="_blank" icon="foursquare"> Foursquare</a> </li>
+                                <li ng-show="event.evento_myspace != ''"><a href="{{event.evento_myspace}}" title="Apri evento Myspace" target="_blank" icon="maxcdn"> Myspace</a> </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr ng-show="event.evento_link != ''">
+                        <td icon="globe" class="prm"><strong>Sito evento</strong></td>
+                        <td>
+                            <a href="{{event.evento_link}}" title="Apri sito evento" target="_blank" icon="external-link-square">Vai al sito</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
 
 </div>

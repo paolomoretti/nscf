@@ -149,7 +149,7 @@ Events = function($scope, $routeParams, $http) {
   return $(".side-view").height(mainRegionHeight);
 };
 
-SingleEventList = function($rootScope, $element, $scope) {
+SingleEventList = function($rootScope, $element, $scope, $location) {
   $scope.init = function(ev) {
     return $scope.event = ev;
   };
@@ -164,7 +164,7 @@ SingleEventList = function($rootScope, $element, $scope) {
       $scope.$emit("event:close", $scope.event);
       $element.removeClass("active");
     }
-    return true;
+    return false;
   };
   return $element.find(".event-social a").on("click", function(event) {
     return event.stopPropagation();

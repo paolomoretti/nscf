@@ -133,7 +133,7 @@ Events = ($scope, $routeParams, $http)->
 #-----------------------------------------------------------------------------------------------------------------------
 
 
-SingleEventList = ($rootScope, $element, $scope)->
+SingleEventList = ($rootScope, $element, $scope, $location)->
 
   $scope.init = (ev)->
     $scope.event = ev
@@ -148,7 +148,7 @@ SingleEventList = ($rootScope, $element, $scope)->
     else
       $scope.$emit "event:close", $scope.event
       $element.removeClass "active"
-    true
+    false
 
   $element.find(".event-social a").on "click", (event)->
     do event.stopPropagation

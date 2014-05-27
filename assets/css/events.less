@@ -189,15 +189,61 @@ html.has-event-open {
 
 /// Dettaglio evento
 .event-detail {
-  padding: 20px 30px 20px 20px;
 
-  .title {
-    h2 {
-      font-size: 2em;
-      padding: 0;
-      margin: 0 0 20px 0;
-      font-weight: 300;
+  .header {
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    min-height: 130px;
+    border-bottom: 4px solid @color-brand;
+
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      content: "";
+      background: @color-white;
+      opacity: .8;
+      z-index: 1;
+    }
+
+    h2.title {
+      z-index: 2;
+      position: absolute;
+      left: 0px;
+      bottom: 0;
+      width: 100%;
+      padding: 10px 20px 0;
+      font-size: 1.7em;
+      font-weight: 400;
       text-align: center;
+      color: darken(@color-black, 2);
+      text-align: left;
+      text-shadow: 2px 2px 1px #eee;
+    }
+  }
+
+  .content {
+    padding: 10px 35px 20px 20px;
+
+    .event-social {
+      .clearlist();
+
+      li {
+        margin-right: 12px;
+        display: inline-block;
+
+        a {
+          font-size: .9em;
+        }
+      }
+    }
+    .table-details {
+      td {
+        font-size: .9em;
+      }
     }
   }
 
@@ -220,4 +266,6 @@ html.has-event-open {
     width: 100%;
     height: 400px;
   }
+//  }
+
 }

@@ -20,10 +20,6 @@ Nscf.config([
       templateUrl: "assets/templates/events/page.html",
       controller: "Events"
     });
-    $routeProvider.when("/events/:id", {
-      templateUrl: "assets/templates/events/event.html",
-      controller: "Event"
-    });
     _ref = ['info', 'contatti'];
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
