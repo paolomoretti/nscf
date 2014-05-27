@@ -1,4 +1,5 @@
 @import "variables";
+@import "helpers";
 
 .header-region {
   position: absolute;
@@ -19,8 +20,8 @@
       min-height: inherit;
 
       .navbar-collapse {
-        .navbar-btn {
-          margin: 0;
+        .events-search {
+          width: 250px;
         }
       }
       .nav {
@@ -48,6 +49,44 @@
       .navbar-brand {
         margin: 0;
       }
+    }
+  }
+
+  .search-results-container {
+    position: relative;
+
+    .search-results {
+      position: absolute;
+      left: 0;
+      background: lighten(@color-grey, 15);
+      box-shadow: 0 4px 8px @color-grey;
+      width: 100%;
+      max-height: 400px;
+      overflow-y: auto;
+
+      .loading {
+        color: @color-black;
+        padding: 4px 10px;
+
+        span {
+
+        }
+      }
+
+      ul {
+        .clearlist();
+
+        li.search-result {
+          display: block;
+
+          a {
+            display: block;
+            padding: 4px 10px;
+            color: @color-black;
+          }
+        }
+      }
+
     }
   }
 }

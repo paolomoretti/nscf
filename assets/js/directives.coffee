@@ -6,7 +6,7 @@
 Nscf.directive "icon", ->
   link: (scope, element, attrs)->
     attrs.$observe 'icon', (iconName)->
-      element.prepend $('<span class="fa fa-'+iconName.toLowerCase()+'"></span>')
+      element.prepend $('<span class="fa fa-'+iconName.toLowerCase()+' mrs"></span>')
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Aggiungendo la directive date con il valore della data, la trasformera' in un mini calendario

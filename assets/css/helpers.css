@@ -198,3 +198,13 @@ a {
   display: table;
   clear: both;
 }
+.clearlist {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.clearlist li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}

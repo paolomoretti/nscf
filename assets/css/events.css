@@ -198,6 +198,16 @@ a {
   display: table;
   clear: both;
 }
+.clearlist {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.clearlist li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
 /*---------------------------------------------------
     LESS Elements 0.9
   ---------------------------------------------------
@@ -305,21 +315,31 @@ a {
 .event-item.active {
   background-color: #67ce12;
 }
-.event-item.active:after {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  margin-top: -20px;
-  border: 20px solid transparent;
-  border-right-color: #e3e3e3;
-}
 .event-item.active .event-details h4 {
   color: #ffffff;
 }
 .event-item.active .event-details ul li a {
+  color: #ffffff;
+}
+.event-item.text {
+  padding: 0;
+}
+.event-item.text .event-details {
+  margin-left: 0;
+  padding: 10px;
+  min-height: 0;
+}
+.event-item.text .event-details h4 {
+  font-size: 1em;
+}
+.event-item.text .event-details p {
+  margin: 0;
+  font-size: .9em;
+}
+.selected .event-item {
+  background: #cccccc;
+}
+.selected .event-item h4 {
   color: #ffffff;
 }
 html.has-event-open .center-view {

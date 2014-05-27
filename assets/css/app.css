@@ -198,6 +198,16 @@ a {
   display: table;
   clear: both;
 }
+.clearlist {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.clearlist li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
 .img-thumbnail {
   border-radius: 0;
 }
@@ -511,8 +521,8 @@ pre {
   margin-top: 10px;
   min-height: inherit;
 }
-.header-region .navigation nav .navbar-collapse .navbar-btn {
-  margin: 0;
+.header-region .navigation nav .navbar-collapse .events-search {
+  width: 250px;
 }
 .header-region .navigation nav .nav {
   color: #fff;
@@ -533,6 +543,40 @@ pre {
 }
 .header-region .navigation nav .navbar-brand {
   margin: 0;
+}
+.header-region .search-results-container {
+  position: relative;
+}
+.header-region .search-results-container .search-results {
+  position: absolute;
+  left: 0;
+  background: #f2f2f2;
+  box-shadow: 0 4px 8px #cccccc;
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.header-region .search-results-container .search-results .loading {
+  color: #111111;
+  padding: 4px 10px;
+}
+.header-region .search-results-container .search-results ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.header-region .search-results-container .search-results ul li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.header-region .search-results-container .search-results ul li.search-result {
+  display: block;
+}
+.header-region .search-results-container .search-results ul li.search-result a {
+  display: block;
+  padding: 4px 10px;
+  color: #111111;
 }
 .tab-content {
   overflow-y: auto;
@@ -635,21 +679,31 @@ pre {
 .event-item.active {
   background-color: #67ce12;
 }
-.event-item.active:after {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  margin-top: -20px;
-  border: 20px solid transparent;
-  border-right-color: #e3e3e3;
-}
 .event-item.active .event-details h4 {
   color: #ffffff;
 }
 .event-item.active .event-details ul li a {
+  color: #ffffff;
+}
+.event-item.text {
+  padding: 0;
+}
+.event-item.text .event-details {
+  margin-left: 0;
+  padding: 10px;
+  min-height: 0;
+}
+.event-item.text .event-details h4 {
+  font-size: 1em;
+}
+.event-item.text .event-details p {
+  margin: 0;
+  font-size: .9em;
+}
+.selected .event-item {
+  background: #cccccc;
+}
+.selected .event-item h4 {
   color: #ffffff;
 }
 html.has-event-open .center-view {

@@ -4,10 +4,17 @@ Main = ($scope, $rootScope, $rootElement, $route)->
   $scope.updateCurrentSection = (current)->
     $scope.activeSection = if current? and current.params.filterType? then current.params.filterType else "home"
 
+  $rootElement.on "keydown", (event)->
+    $rootScope.$broadcast "event:key:left"  if event.which is 37
+    $rootScope.$broadcast "event:key:up"    if event.which is 38
+    $rootScope.$broadcast "event:key:right" if event.which is 39
+    $rootScope.$broadcast "event:key:down"  if event.which is 40
+    $rootScope.$broadcast "event:key:esc"   if event.which is 27
+    $rootScope.$broadcast "event:key:enter" if event.which is 13
 
   $scope.$on "$routeChangeStart", (prev, current)->
     $scope.updateCurrentSection current
-    $rootElement.attr "class", current.$$route.controller.toLowerCase()
+    $rootElement.attr "class", current.$$route.controller.toLowerCase() if current.$$route.controller?
 
   $scope.$on "event:open", (_event, evento)->
     $("html").addClass "has-event-open"
@@ -15,7 +22,7 @@ Main = ($scope, $rootScope, $rootElement, $route)->
 
     $rootScope.$broadcast "currentevent:update", evento
 
-  $scope.$on "event:close", (_event, evento)->
+  $scope.$on "event:close", ->
     $("html").removeClass "has-event-open"
     $scope.currentEvent = false
 
@@ -24,8 +31,64 @@ Main = ($scope, $rootScope, $rootElement, $route)->
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-Header = ->
+Header = ($scope, $element, $rootScope, $location, $http, $q)->
   $(".main-region").css "padding-top", $(".header-region").outerHeight()
+
+  $scope.searching = false
+  $scope.searchResults = []
+
+  $scope.doSearch = (event)->
+    return $scope.searchResults = [] if $(event.target).val().trim() is ""
+    $scope.searchResults = $scope.getResults $(event.target).val().trim() if event.which not in [13, 27, 37, 38, 39, 40]
+
+  $scope.$on "event:key:down", ->
+    $scope.highlightResults 1 if $scope.searchResults.length > 0
+
+  $scope.$on "event:key:up", ->
+    $scope.highlightResults -1 if $scope.searchResults.length > 0
+
+  $scope.$on "event:key:esc", ->
+    $scope.searchResults = []
+
+  $scope.$on "event:key:enter", ->
+    $element.find(".search-result.selected .event-item").trigger "click"
+    $rootScope.$broadcast "search:results:reset"
+
+  $scope.$on "search:results:hide", ->
+    $scope.searchResults = []
+
+  $scope.$on "search:results:reset", ->
+    $scope.$emit "search:results:hide"
+    $element.find("input.events-search").val ""
+
+  $scope.highlightResults = (dir)->
+    selected = if $element.find(".search-result.selected").size() > 0 then $element.find(".search-result.selected")[if dir is 1 then "next" else "prev"]() else $element.find(".search-result:first")
+
+    if selected.is ".search-result"
+      $element.find(".search-result.selected").removeClass "selected"
+      selected.addClass "selected" if selected.is(".search-result")
+
+      elemPos = $element.find(".search-results").scrollTop() + selected.position().top
+      st = ($element.height() + elemPos)-$element.find(".search-results").height()
+      $element.find(".search-results").animate
+        scrollTop: st
+      , 200
+
+  $scope.getResults = (k)->
+    do $scope.canceler.resolve if $scope.canceler?
+
+    $scope.canceler = do $q.defer
+    $scope.searching = true
+
+    $http(method: "GET", url: Nscf.apiUrl + "events/search/" + k, timeout: $scope.canceler.promise).success (data)->
+      $scope.searching = false
+      $scope.searchResults = data
+
+  $scope.onLogoClicked = (event)->
+    do event.preventDefault
+
+    $rootScope.$broadcast "event:close"
+    $location.path "/"
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -102,7 +165,6 @@ EventDetails = ($scope, $element)->
     Nscf.apiUrl + "events/" + $scope.event.id + "/image"
 
   $scope.$on "currentevent:update", (_event, evento)->
-    console.log "EVENTO", evento
     $scope.event = evento
     do $scope.createMap
 

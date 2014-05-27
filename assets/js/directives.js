@@ -9,7 +9,7 @@ Nscf.directive("icon", function() {
   return {
     link: function(scope, element, attrs) {
       return attrs.$observe('icon', function(iconName) {
-        return element.prepend($('<span class="fa fa-' + iconName.toLowerCase() + '"></span>'));
+        return element.prepend($('<span class="fa fa-' + iconName.toLowerCase() + ' mrs"></span>'));
       });
     }
   };

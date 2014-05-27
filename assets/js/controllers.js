@@ -5,24 +5,116 @@ Main = function($scope, $rootScope, $rootElement, $route) {
   $scope.updateCurrentSection = function(current) {
     return $scope.activeSection = (current != null) && (current.params.filterType != null) ? current.params.filterType : "home";
   };
+  $rootElement.on("keydown", function(event) {
+    if (event.which === 37) {
+      $rootScope.$broadcast("event:key:left");
+    }
+    if (event.which === 38) {
+      $rootScope.$broadcast("event:key:up");
+    }
+    if (event.which === 39) {
+      $rootScope.$broadcast("event:key:right");
+    }
+    if (event.which === 40) {
+      $rootScope.$broadcast("event:key:down");
+    }
+    if (event.which === 27) {
+      $rootScope.$broadcast("event:key:esc");
+    }
+    if (event.which === 13) {
+      return $rootScope.$broadcast("event:key:enter");
+    }
+  });
   $scope.$on("$routeChangeStart", function(prev, current) {
     $scope.updateCurrentSection(current);
-    return $rootElement.attr("class", current.$$route.controller.toLowerCase());
+    if (current.$$route.controller != null) {
+      return $rootElement.attr("class", current.$$route.controller.toLowerCase());
+    }
   });
   $scope.$on("event:open", function(_event, evento) {
     $("html").addClass("has-event-open");
     $scope.currentEvent = evento;
     return $rootScope.$broadcast("currentevent:update", evento);
   });
-  $scope.$on("event:close", function(_event, evento) {
+  $scope.$on("event:close", function() {
     $("html").removeClass("has-event-open");
     return $scope.currentEvent = false;
   });
   return $scope.updateCurrentSection($route.current);
 };
 
-Header = function() {
-  return $(".main-region").css("padding-top", $(".header-region").outerHeight());
+Header = function($scope, $element, $rootScope, $location, $http, $q) {
+  $(".main-region").css("padding-top", $(".header-region").outerHeight());
+  $scope.searching = false;
+  $scope.searchResults = [];
+  $scope.doSearch = function(event) {
+    var _ref;
+    if ($(event.target).val().trim() === "") {
+      return $scope.searchResults = [];
+    }
+    if ((_ref = event.which) !== 13 && _ref !== 27 && _ref !== 37 && _ref !== 38 && _ref !== 39 && _ref !== 40) {
+      return $scope.searchResults = $scope.getResults($(event.target).val().trim());
+    }
+  };
+  $scope.$on("event:key:down", function() {
+    if ($scope.searchResults.length > 0) {
+      return $scope.highlightResults(1);
+    }
+  });
+  $scope.$on("event:key:up", function() {
+    if ($scope.searchResults.length > 0) {
+      return $scope.highlightResults(-1);
+    }
+  });
+  $scope.$on("event:key:esc", function() {
+    return $scope.searchResults = [];
+  });
+  $scope.$on("event:key:enter", function() {
+    $element.find(".search-result.selected .event-item").trigger("click");
+    return $rootScope.$broadcast("search:results:reset");
+  });
+  $scope.$on("search:results:hide", function() {
+    return $scope.searchResults = [];
+  });
+  $scope.$on("search:results:reset", function() {
+    $scope.$emit("search:results:hide");
+    return $element.find("input.events-search").val("");
+  });
+  $scope.highlightResults = function(dir) {
+    var elemPos, selected, st;
+    selected = $element.find(".search-result.selected").size() > 0 ? $element.find(".search-result.selected")[dir === 1 ? "next" : "prev"]() : $element.find(".search-result:first");
+    if (selected.is(".search-result")) {
+      $element.find(".search-result.selected").removeClass("selected");
+      if (selected.is(".search-result")) {
+        selected.addClass("selected");
+      }
+      elemPos = $element.find(".search-results").scrollTop() + selected.position().top;
+      st = ($element.height() + elemPos) - $element.find(".search-results").height();
+      return $element.find(".search-results").animate({
+        scrollTop: st
+      }, 200);
+    }
+  };
+  $scope.getResults = function(k) {
+    if ($scope.canceler != null) {
+      $scope.canceler.resolve();
+    }
+    $scope.canceler = $q.defer();
+    $scope.searching = true;
+    return $http({
+      method: "GET",
+      url: Nscf.apiUrl + "events/search/" + k,
+      timeout: $scope.canceler.promise
+    }).success(function(data) {
+      $scope.searching = false;
+      return $scope.searchResults = data;
+    });
+  };
+  return $scope.onLogoClicked = function(event) {
+    event.preventDefault();
+    $rootScope.$broadcast("event:close");
+    return $location.path("/");
+  };
 };
 
 Footer = function() {
@@ -85,7 +177,6 @@ EventDetails = function($scope, $element) {
     return Nscf.apiUrl + "events/" + $scope.event.id + "/image";
   };
   $scope.$on("currentevent:update", function(_event, evento) {
-    console.log("EVENTO", evento);
     $scope.event = evento;
     return $scope.createMap();
   });
