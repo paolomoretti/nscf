@@ -23,21 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="23" selection-start="1200" selection-end="1200" vertical-scroll-proportion="0.42982456" vertical-offset="423" max-vertical-offset="1050">
-              <folding>
-                <marker date="1400863231000" expanded="true" signature="135:268" placeholder="SELECT id, N..Query_Dettaglio..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="config.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="38" selection-start="1211" selection-end="1219" vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="570">
+            <state line="23" column="38" selection-start="1211" selection-end="1219" vertical-scroll-proportion="1.0087719" vertical-offset="0" max-vertical-offset="570">
               <folding />
             </state>
           </provider>
@@ -130,6 +119,7 @@
     <property name="options.searchVisible" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="RestClientSettings">
     <option name="REQUEST_HISTORY">
@@ -299,13 +289,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="38" selection-start="1211" selection-end="1219" vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="570">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/basic.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="98" column="8" selection-start="3583" selection-end="3583" vertical-scroll-proportion="0.28169015" vertical-offset="1370" max-vertical-offset="1725">
@@ -313,12 +296,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="23" selection-start="1200" selection-end="1200" vertical-scroll-proportion="0.42982456" vertical-offset="423" max-vertical-offset="1050">
-          <folding>
-            <marker date="1400863231000" expanded="true" signature="135:268" placeholder="SELECT id, N..Query_Dettaglio..." />
-          </folding>
+        <state line="23" column="38" selection-start="1211" selection-end="1219" vertical-scroll-proportion="1.0087719" vertical-offset="0" max-vertical-offset="570">
+          <folding />
         </state>
       </provider>
     </entry>
