@@ -1,0 +1,29 @@
+<div class="nearby-container" ng-class="{'loading': loading == true}" ng-init="init()">
+    <div class="loading" ng-show="loading">
+        Caricamento in corso...
+    </div>
+
+    <div class="col filters">
+        <div class="header">
+            <h4>Filtri</h4>
+        </div>
+        <div class="field">
+            <label for="categories">Scegli categoria</label>
+            <select class="filter-select" ng-model="filters.categories" name="categories" id="categories" multiple>
+                <option ng-repeat="category in $categories" value="{{category.id}}" icon="{{category.icon}}">{{category.name}}</option>
+            </select>
+        </div>
+
+        <div class="header">
+            <h4>Eventi</h4>
+        </div>
+        <div class="events-container">
+            <ul>
+                <li>asd</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col map">
+        <div id="map"></div>
+    </div>
+</div>

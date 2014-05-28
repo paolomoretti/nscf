@@ -297,3 +297,82 @@ html.has-event-open {
   }
 
 }
+
+
+/// Nearby filter
+.nearby-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  .clearfix;
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin: -100px 0 0 -100px;
+    text-align: center;
+    opacity: 0;
+    z-index: 12;
+    .single-transition(opacity .4s);
+  }
+
+  &.loading {
+    .loading {
+      opacity: 1;
+    }
+  }
+
+  .col {
+    height: 100%;
+    float: left;
+
+    &.filters {
+      width: 20%;
+      box-shadow: 3px 0 19px @color-grey;
+      z-index: 4;
+      position: relative;
+
+      .header {
+        background: lighten(@color-grey, 10);
+
+        h4 {
+          padding: 10px 15px;
+          color: @color-black;
+          font-weight: 400;
+          margin: 0;
+        }
+      }
+      .field {
+        padding: 10px 15px;
+        margin-bottom: 10px;
+
+        .filter-select {
+          display: block;
+          width: 100%;
+          font-size: 1em;
+          padding: 5px 10px;
+          height: 120px;
+
+          option {
+            display: block;
+            font-size: 1em;
+            padding: 5px 10px;
+            width: 100%;
+          }
+        }
+      }
+    }
+    &.map {
+      width: 80%;
+
+      #map {
+        height: 100%;
+        width: 100%;
+        min-height: 400px;
+      }
+    }
+  }
+}

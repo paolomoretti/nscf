@@ -425,3 +425,75 @@ html.has-event-open .center-view .event-item .event-details .event-luogo {
   margin: 0;
   padding: 12px 20px;
 }
+.nearby-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.nearby-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.nearby-container .loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin: -100px 0 0 -100px;
+  text-align: center;
+  opacity: 0;
+  z-index: 12;
+  -webkit-transition: opacity 0.4s 0.2s ease-out;
+  -moz-transition: opacity 0.4s 0.2s ease-out;
+  -o-transition: opacity 0.4s 0.2s ease-out;
+  transition: opacity 0.4s 0.2s ease-out;
+}
+.nearby-container.loading .loading {
+  opacity: 1;
+}
+.nearby-container .col {
+  height: 100%;
+  float: left;
+}
+.nearby-container .col.filters {
+  width: 20%;
+  box-shadow: 3px 0 19px #cccccc;
+  z-index: 4;
+  position: relative;
+}
+.nearby-container .col.filters .header {
+  background: #e6e6e6;
+}
+.nearby-container .col.filters .header h4 {
+  padding: 10px 15px;
+  color: #111111;
+  font-weight: 400;
+  margin: 0;
+}
+.nearby-container .col.filters .field {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+.nearby-container .col.filters .field .filter-select {
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  padding: 5px 10px;
+  height: 120px;
+}
+.nearby-container .col.filters .field .filter-select option {
+  display: block;
+  font-size: 1em;
+  padding: 5px 10px;
+  width: 100%;
+}
+.nearby-container .col.map {
+  width: 80%;
+}
+.nearby-container .col.map #map {
+  height: 100%;
+  width: 100%;
+  min-height: 400px;
+}

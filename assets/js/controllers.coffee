@@ -3,6 +3,7 @@ Main = ($scope, $rootScope, $rootElement, $route)->
 
   $scope.updateCurrentSection = (current)->
     $scope.activeSection = if current? and current.params.filterType? then current.params.filterType else "home"
+    $scope.activeSection = "nearby" if current? and current.$$route.controller is "Events.Nearby"
 
   $rootElement.on "keydown", (event)->
     $rootScope.$broadcast "event:key:left"  if event.which is 37
@@ -110,7 +111,26 @@ Home = ($scope, $http)->
   $(".center-view").height $(".main-view").height()
   $(".side-view").height $(".main-view").height()
 
+
 #-----------------------------------------------------------------------------------------------------------------------
+
+
+Login = ($scope)->
+  false
+
+
+
+
+
+
+
+
+
+
+
+#----------------------------------------------------------------------------------------------------------------------
+#  EVENTS
+#----------------------------------------------------------------------------------------------------------------------
 
 Events = ($scope, $routeParams, $http)->
   $scope.loading = true
@@ -134,8 +154,122 @@ Events = ($scope, $routeParams, $http)->
 
 #-----------------------------------------------------------------------------------------------------------------------
 
+Events.Nearby = ($scope, $timeout, $http, $categories)->
 
-SingleEventList = ($rootScope, $element, $scope)->
+  $scope.loading = true
+  $scope.defaultZoom = 10
+  $scope.$categories = $categories
+  $scope.markers = []
+  $scope.filters =
+    categories: []
+
+
+  $scope.$watch "filters", ->
+    do $scope.applyFilters
+  , true
+
+
+  $scope.init = ->
+    # Faking to be in veneto
+    $timeout ->
+      $scope.loading = false
+    , 0
+
+    position =
+      coords:
+        latitude: 45.953656
+        longitude: 12.502205
+
+    $scope.createMap position
+    $scope.getEvents ->
+      $scope.populateMap()
+
+#   TODO: Uncomment and remove fake code
+#    if navigator.geolocation?
+#      navigator.geolocation.getCurrentPosition (position)=>
+#        $timeout ->
+#          $scope.loading = false
+#        , 0
+#        $scope.createMap position
+#        $scope.getEvents ->
+#          $scope.populateMap()
+#
+#      , (errorMessage)->
+#        alert errorMessage
+
+
+
+  $scope.applyFilters = ->
+    resultEvents = []
+    if $scope.filters.categories.length > 0
+      for category in $scope.filters.categories
+        _evs = (ev for ev in $scope._events when ev[category] is true)
+        resultEvents = resultEvents.concat _evs
+
+    $scope.events = resultEvents
+
+    do $scope.populateMap
+
+  $scope.createMap = (position)->
+    whereAmI = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+    options =
+      zoom      : $scope.defaultZoom
+      center    : whereAmI
+      mapTypeId : google.maps.MapTypeId.ROADMAP
+
+    $scope.map = new google.maps.Map($("#map")[0], options)
+
+    new google.maps.Marker
+      position  : whereAmI
+      map       : $scope.map
+      title     : "Sei qui!"
+
+  $scope.getEvents = (callback)->
+    $http.get(Nscf.apiUrl + "events/today").success (data)=>
+      $scope.events = $scope._events = data
+
+      callback()
+
+  $scope.populateMap = ->
+    do $scope.removeMarkers
+
+    for ev in $scope.events
+      gps = ev.GPS_L.split(",")
+
+      marker = new google.maps.Marker
+        position  : new google.maps.LatLng(parseFloat(gps[0]), parseFloat(gps[1]))
+        map       : $scope.map
+#        icon      :
+#          path        : google.maps.SymbolPath.CIRCLE,
+#          strokeColor : "red",
+#          scale       : 3
+        animation : google.maps.Animation.DROP
+        evento: ev
+
+      google.maps.event.addListener marker, 'click', ->
+        infowindow = new google.maps.InfoWindow
+
+        infowindow.setContent '<h3>'+@.evento.nome+'</h3>'
+        infowindow.open $scope.map, @
+
+        console.log "", @
+
+      $scope.markers.push marker
+
+
+
+  $scope.removeMarkers = ->
+    for marker in $scope.markers
+      marker.setMap null
+
+    $scope.markers = []
+
+
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+
+Events.ListSingle = ($rootScope, $element, $scope)->
 
   $scope.init = (ev)->
     $scope.event = ev
@@ -158,8 +292,20 @@ SingleEventList = ($rootScope, $element, $scope)->
 
 #-----------------------------------------------------------------------------------------------------------------------
 
+Event = ($scope, $routeParams, $http)->
+  $scope.loading = true
 
-EventDetails = ($scope, $element)->
+  $http.get(Nscf.apiUrl + "/event&id="+$routeParams.id).success (data)->
+    $scope.ev = data
+    $scope.loading = false
+
+  $scope.getDay = (data)->
+    data.split("/")[0]
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+
+Event.Details = ($scope, $element)->
 
   $scope.event = false
 
@@ -198,22 +344,3 @@ EventDetails = ($scope, $element)->
       title: $scope.event.nome
 
 
-
-#-----------------------------------------------------------------------------------------------------------------------
-
-Event = ($scope, $routeParams, $http)->
-  $scope.loading = true
-
-  $http.get(Nscf.apiUrl + "/event&id="+$routeParams.id).success (data)->
-    $scope.ev = data
-    $scope.loading = false
-
-  $scope.getDay = (data)->
-    data.split("/")[0]
-
-#-----------------------------------------------------------------------------------------------------------------------
-
-Login = ($scope)->
-  false
-
-#-----------------------------------------------------------------------------------------------------------------------
