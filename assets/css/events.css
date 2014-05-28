@@ -297,8 +297,11 @@ a {
 .selected .event-item h4 {
   color: #ffffff;
 }
-html.has-event-open .center-view {
-  box-shadow: inset 5px -11px 25px #333333;
+html.has-event-open .center-view .nav.nav-tabs {
+  margin: 0 0 0 16px;
+}
+html.has-event-open .center-view .nav.nav-tabs li {
+  width: 50%;
 }
 html.has-event-open .center-view .event-item {
   padding: 8px 25px 10px 25px;
@@ -324,7 +327,7 @@ html.has-event-open .center-view .event-item .event-details .event-luogo {
   min-height: 130px;
   border-bottom: 4px solid #67ce12;
   text-align: center;
-  cursor: nesw-resize;
+  cursor: pointer;
 }
 .event-detail .header:before {
   position: absolute;
@@ -389,6 +392,17 @@ html.has-event-open .center-view .event-item .event-details .event-luogo {
 }
 .event-detail .content .table-details td {
   font-size: .9em;
+}
+.event-detail .content .table-details td:first-child {
+  white-space: nowrap;
+}
+.event-detail .content .table-details td p {
+  margin: 0;
+}
+.event-detail .content .table-details td .social-luogo {
+  display: inline;
+  margin-left: 10px;
+  white-space: nowrap;
 }
 .event-detail .content #map {
   width: 100%;

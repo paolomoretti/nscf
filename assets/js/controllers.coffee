@@ -135,7 +135,7 @@ Events = ($scope, $routeParams, $http)->
 #-----------------------------------------------------------------------------------------------------------------------
 
 
-SingleEventList = ($rootScope, $element, $scope, $location)->
+SingleEventList = ($rootScope, $element, $scope)->
 
   $scope.init = (ev)->
     $scope.event = ev
@@ -175,6 +175,9 @@ EventDetails = ($scope, $element)->
     $element.toggleClass "has-poster-expanded"
 
   # Methods
+  $scope.hasLuogoSocial = ->
+    $scope.event.luogo_facebook isnt '' or $scope.event.luogo_twitter isnt '' or $scope.event.luogo_googleplus isnt '' or $scope.event.luogo_foursquare isnt '' or $scope.event.luogo_myspace isnt ''
+
   $scope.getEventImage = ->
     Nscf.apiUrl + "events/" + $scope.event.id + "/image"
 

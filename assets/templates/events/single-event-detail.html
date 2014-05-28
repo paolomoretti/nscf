@@ -8,10 +8,10 @@
     <div class="content">
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div id="map"></div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <table class="table table-responsive table-details">
                     <tr>
                         <td icon="calendar" class="prm"><strong>Data</strong></td>
@@ -28,13 +28,37 @@
                     <tr>
                         <td icon="map-marker" class="prm"><strong>Luogo</strong></td>
                         <td>
-                            <p>{{event.luogo}}</p>
-                            <ul>
+                            <strong ng-show="event.NomeLuogo != null">{{event.NomeLuogo}}</strong>
+                            <ul ng-show="hasLuogoSocial()" class="clearlist list-inline social-luogo">
+                                <li ng-show="event.luogo_facebook != ''"><a href="{{event.luogo_facebook}}" title="Apri il Facebook del luogo" target="_blank" icon="facebook-square"></a> </li>
+                                <li ng-show="event.luogo_twitter != ''"><a href="{{event.luogo_twitter}}" title="Apri Twitter del luogo" target="_blank" icon="twitter-square"></a> </li>
+                                <li ng-show="event.luogo_googleplus != ''"><a href="{{event.luogo_googleplus}}" title="Apri Google Plus del luogo" target="_blank" icon="google-plus-square"></a> </li>
+                                <li ng-show="event.luogo_foursquare != ''"><a href="{{event.luogo_foursquare}}" title="Apri Foursquare del luogo" target="_blank" icon="foursquare"></a> </li>
+                                <li ng-show="event.luogo_myspace != ''"><a href="{{event.luogo_myspace}}" title="Apri Myspace del luogo" target="_blank" icon="maxcdn"></a> </li>
                             </ul>
+
+                            <p ng-show="event.Indirizzo">{{event.Indirizzo}}</p>
+                            <p>{{event.Localita}}</p>
+                        </td>
+                    </tr>
+                    <tr ng-show="event.Animazione != null">
+                        <td icon="music" class="prm"><strong>Animazione</strong></td>
+                        <td>
+                            <div>
+                                <strong>{{event.AnimazioneNome}}</strong>
+                                <ul class="clearlist list-inline">
+                                    <li ng-show="event.animazione_facebook != ''"><a href="{{event.animazione_facebook}}" title="Apri il Facebook della band" target="_blank" icon="facebook-square"></a> </li>
+                                    <li ng-show="event.animazione_twitter != ''"><a href="{{event.animazione_twitter}}" title="Apri Twitter della band" target="_blank" icon="twitter-square"></a> </li>
+                                    <li ng-show="event.animazione_googleplus != ''"><a href="{{event.animazione_googleplus}}" title="Apri Google Plus della band" target="_blank" icon="google-plus-square"></a> </li>
+                                    <li ng-show="event.animazione_myspace != ''"><a href="{{event.animazione_myspace}}" title="Apri Myspace della band" target="_blank" icon="maxcdn"></a> </li>
+                                </ul>
+                                <p>{{event.Animazione.replace(event.AnimazioneNome + " - ", "")}}</p>
+                                <div style="width: 20%; height: 20%; float: right; background-image: url('{{event.animazione_image}}'); background-size: cover"></div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
-                        <td icon="puzzle-piece" class="prm"><strong>Tipo evento</strong></td>
+                        <td icon="puzzle-piece" class="prm"><strong>Tipo</strong></td>
                         <td>
                             <ul class="clearlist">
                                 <li ng-show="event.EM"><a href="#" icon="music">Evento musicale</a></li>
@@ -59,7 +83,7 @@
                         </td>
                     </tr>
                     <tr ng-show="event.evento_link != ''">
-                        <td icon="globe" class="prm"><strong>Sito evento</strong></td>
+                        <td icon="globe" class="prm"><strong>Sito</strong></td>
                         <td>
                             <a href="{{event.evento_link}}" title="Apri sito evento" target="_blank" icon="external-link-square">Vai al sito</a>
                         </td>

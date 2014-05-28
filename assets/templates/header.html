@@ -32,7 +32,7 @@
                                 <p ng-show="searching" class="loading" icon="refresh">Caricamento eventi...</p>
                                 <ul ng-show="!searching">
                                     <li class="search-result" ng-repeat="event in searchResults">
-                                        <div ng-include="'assets/templates/events/single-event-text-list.html'"></div>
+                                        <div ng-include="'assets/templates/events/single-event-text-list.html'" show-type="searchResult"></div>
                                     </li>
                                 </ul>
                             </div>

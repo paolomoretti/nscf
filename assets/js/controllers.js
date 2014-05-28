@@ -149,7 +149,7 @@ Events = function($scope, $routeParams, $http) {
   return $(".side-view").height(mainRegionHeight);
 };
 
-SingleEventList = function($rootScope, $element, $scope, $location) {
+SingleEventList = function($rootScope, $element, $scope) {
   $scope.init = function(ev) {
     return $scope.event = ev;
   };
@@ -180,6 +180,9 @@ EventDetails = function($scope, $element) {
   $scope.toggleExpandPoster = function(event) {
     event.preventDefault();
     return $element.toggleClass("has-poster-expanded");
+  };
+  $scope.hasLuogoSocial = function() {
+    return $scope.event.luogo_facebook !== '' || $scope.event.luogo_twitter !== '' || $scope.event.luogo_googleplus !== '' || $scope.event.luogo_foursquare !== '' || $scope.event.luogo_myspace !== '';
   };
   $scope.getEventImage = function() {
     return Nscf.apiUrl + "events/" + $scope.event.id + "/image";

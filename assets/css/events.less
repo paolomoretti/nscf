@@ -151,7 +151,15 @@
 
 html.has-event-open {
   .center-view {
-    box-shadow: inset 5px -11px 25px #333;
+//    box-shadow: inset 5px -11px 25px #333;
+
+    .nav.nav-tabs {
+      margin: 0 0 0 16px;
+
+      li {
+        width: 50%;
+      }
+    }
 
     .event-item {
       padding: 8px 25px 10px 25px;
@@ -185,7 +193,7 @@ html.has-event-open {
     min-height: 130px;
     border-bottom: 4px solid @color-brand;
     text-align: center;
-    cursor: nesw-resize;
+    cursor: pointer;
 
     &:before {
       position: absolute;
@@ -241,6 +249,20 @@ html.has-event-open {
     .table-details {
       td {
         font-size: .9em;
+
+        &:first-child {
+          white-space: nowrap;
+        }
+
+        p {
+          margin: 0;
+        }
+
+        .social-luogo {
+          display: inline;
+          margin-left: 10px;
+          white-space: nowrap;
+        }
       }
     }
     #map {
