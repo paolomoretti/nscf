@@ -6,6 +6,8 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, PUT, OPTIONS');
 header('Content-type: application/json');
 
+// echo "eccome qua!";
+
 
 /*
  * Siccome vogliamo che tutti gli oggetti evento siano uguali, non importa se con piu' dati del necessario, imposto
