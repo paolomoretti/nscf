@@ -1,6 +1,6 @@
-<div class="nearby-container" ng-class="{'loading': loading == true}" ng-init="init()">
-    <div class="loading" ng-show="loading">
-        Caricamento in corso...
+<div class="nearby-container" ng-class="{'loaded': loading == false}" ng-init="init()">
+    <div class="loading">
+        {{action}}
     </div>
 
     <div class="col filters">
@@ -15,11 +15,13 @@
         </div>
 
         <div class="header">
-            <h4>Eventi</h4>
+            <h4>Eventi <span>({{events.length}})</span></h4>
         </div>
         <div class="events-container">
-            <ul>
-                <li>asd</li>
+            <ul class="clearlist">
+                <li ng-repeat="event in events">
+                    <div ng-include="'assets/templates/events/single-event-text-list.html'"></div>
+                </li>
             </ul>
         </div>
     </div>

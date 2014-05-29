@@ -157,23 +157,40 @@ Events = ($scope, $routeParams, $http)->
 Events.Nearby = ($scope, $timeout, $http, $categories)->
 
   $scope.loading = true
+  $scope.action = "Riconoscimento posizione..."
   $scope.defaultZoom = 10
+  $scope.boundaries = false
   $scope.$categories = $categories
-  $scope.markers = []
+  $scope.markers = {}
   $scope.filters =
     categories: []
+    event: false
 
-
+  # Events
   $scope.$watch "filters", ->
     do $scope.applyFilters
   , true
 
+  $scope.$on "events:listsingle:finish", ->
+    $scope.map.fitBounds $scope.boundaries
+
+    do $scope.stopLoading
+
+  $scope.$on "event:open", (_ev, evento)->
+    eventBounds = new google.maps.LatLngBounds()
+    eventBounds.extend $scope.markers[evento.id].latLng
+
+    $scope.map.panTo $scope.markers[evento.id].latLng
+    $scope.map.setZoom 13
+#    $scope.map.setCenter $scope.markers[evento.id].latLng
+#    $scope.map.fitBounds eventBounds
+
+  $scope.$on "event:close", (_ev, evento)->
+    $scope.filters.event = false
 
   $scope.init = ->
     # Faking to be in veneto
-    $timeout ->
-      $scope.loading = false
-    , 0
+    $scope.action = "Caricamento eventi ..."
 
     position =
       coords:
@@ -201,10 +218,20 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
 
   $scope.applyFilters = ->
     resultEvents = []
-    if $scope.filters.categories.length > 0
+
+    # Apply single event filter
+    if $scope.filters.event isnt false
+      resultEvents.push $scope.filters.event
+
+    # Apply event category filter
+    else if $scope.filters.categories.length > 0
       for category in $scope.filters.categories
         _evs = (ev for ev in $scope._events when ev[category] is true)
         resultEvents = resultEvents.concat _evs
+
+    # No filters, let's take all events
+    else
+      resultEvents = $scope._events
 
     $scope.events = resultEvents
 
@@ -218,6 +245,7 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
       mapTypeId : google.maps.MapTypeId.ROADMAP
 
     $scope.map = new google.maps.Map($("#map")[0], options)
+    $scope.boundaries = new google.maps.LatLngBounds()
 
     new google.maps.Marker
       position  : whereAmI
@@ -225,7 +253,7 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
       title     : "Sei qui!"
 
   $scope.getEvents = (callback)->
-    $http.get(Nscf.apiUrl + "events/today").success (data)=>
+    $http.get(Nscf.apiUrl + "events").success (data)=>
       $scope.events = $scope._events = data
 
       callback()
@@ -233,18 +261,25 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
   $scope.populateMap = ->
     do $scope.removeMarkers
 
+    $scope.action = "Eventi caricati, applico i filtri ..."
+
     for ev in $scope.events
       gps = ev.GPS_L.split(",")
 
+      eventLatLng = new google.maps.LatLng(parseFloat(gps[0]), parseFloat(gps[1]))
+
+      $scope.boundaries.extend eventLatLng
+
       marker = new google.maps.Marker
-        position  : new google.maps.LatLng(parseFloat(gps[0]), parseFloat(gps[1]))
+        position  : eventLatLng
         map       : $scope.map
 #        icon      :
 #          path        : google.maps.SymbolPath.CIRCLE,
 #          strokeColor : "red",
 #          scale       : 3
-        animation : google.maps.Animation.DROP
+#        animation : google.maps.Animation.DROP
         evento: ev
+        latLng: eventLatLng
 
       google.maps.event.addListener marker, 'click', ->
         infowindow = new google.maps.InfoWindow
@@ -252,17 +287,24 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
         infowindow.setContent '<h3>'+@.evento.nome+'</h3>'
         infowindow.open $scope.map, @
 
-        console.log "", @
-
-      $scope.markers.push marker
-
-
+      $scope.markers[ev.id] = marker
 
   $scope.removeMarkers = ->
-    for marker in $scope.markers
+    for id,marker of $scope.markers
       marker.setMap null
 
-    $scope.markers = []
+    $scope.markers = {}
+
+  $scope.stopLoading = ->
+    $timeout ->
+      $scope.loading = false
+    , 500
+
+    $timeout ->
+      $(".nearby-container .loading").hide()
+    , 1000
+
+  $(".nearby-container .events-container").height $(".main-view").height() - $(".nearby-container .events-container").position().top
 
 
 
@@ -273,6 +315,8 @@ Events.ListSingle = ($rootScope, $element, $scope)->
 
   $scope.init = (ev)->
     $scope.event = ev
+
+    if $scope.$last is true then $rootScope.$broadcast "events:listsingle:finish", ev
 
   $scope.getEventImage = ->
     Nscf.apiUrl + "events/" + $scope.event.id + "/image"
