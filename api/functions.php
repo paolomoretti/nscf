@@ -32,6 +32,9 @@ Flight::map("cache", function ($key, $callback, $expire) {
 });
 
 Flight::map("query", function ($sql) {
+  if (isset($_REQUEST['debug']))
+    return array("sql" => $sql);
+  
   return Flight::cache($sql, function ($sql) {
     $context  = stream_context_create(array(
       'http' => array(

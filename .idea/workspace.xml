@@ -23,21 +23,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/api/index.php">
+      <file leaf-file-name="config.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="91" selection-start="216" selection-end="216" vertical-scroll-proportion="0.13677812" vertical-offset="0" max-vertical-offset="1155">
-              <folding>
-                <marker date="1401293873000" expanded="true" signature="135:216" placeholder="SELECT id, N..Query_Dettaglio..." />
-              </folding>
+            <state line="18" column="0" selection-start="884" selection-end="884" vertical-scroll-proportion="-11.25" vertical-offset="0" max-vertical-offset="615">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/config.php">
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="51" selection-start="1198" selection-end="1198" vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="615">
+            <state line="14" column="19" selection-start="487" selection-end="487" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="1155">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="functions.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/api/functions.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="2" selection-start="968" selection-end="968" vertical-scroll-proportion="0.6434635" vertical-offset="161" max-vertical-offset="795">
               <folding />
             </state>
           </provider>
@@ -78,6 +85,7 @@
         <option value="$PROJECT_DIR$/assets/templates/home/page.html" />
         <option value="$PROJECT_DIR$/api/config.php" />
         <option value="$PROJECT_DIR$/api/index.php" />
+        <option value="$PROJECT_DIR$/api/functions.php" />
       </list>
     </option>
   </component>
@@ -272,7 +280,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31000972" sideWeight="0.5050215" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37706512" sideWeight="0.5050215" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17838125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -604,17 +612,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="51" selection-start="1198" selection-end="1198" vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="615">
+        <state line="18" column="0" selection-start="884" selection-end="884" vertical-scroll-proportion="-11.25" vertical-offset="0" max-vertical-offset="615">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="91" selection-start="216" selection-end="216" vertical-scroll-proportion="0.13677812" vertical-offset="0" max-vertical-offset="1155">
-          <folding>
-            <marker date="1401293873000" expanded="true" signature="135:216" placeholder="SELECT id, N..Query_Dettaglio..." />
-          </folding>
+        <state line="14" column="19" selection-start="487" selection-end="487" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="1155">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="2" selection-start="968" selection-end="968" vertical-scroll-proportion="0.6434635" vertical-offset="161" max-vertical-offset="795">
+          <folding />
         </state>
       </provider>
     </entry>
