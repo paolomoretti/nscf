@@ -156,7 +156,17 @@ Events = ($scope, $routeParams, $http)->
 
 Events.Nearby = ($scope, $timeout, $http, $categories)->
 
-  $scope.loading = true
+  $scope.showLoading = (action)->
+    $(".nearby-container .loading").html(action).css("opacity", 1).show()
+
+  $scope.stopLoading = ->
+    $(".nearby-container .loading").html("Caricamento...").css("opacity", 0)
+    setTimeout ->
+      $(".nearby-container .loading").hide()
+    , 500
+
+  $scope.showLoading "Caricamento mappa"
+
   $scope.action = "Riconoscimento posizione..."
   $scope.defaultZoom = 10
   $scope.boundaries = false
@@ -168,7 +178,11 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
 
   # Events
   $scope.$watch "filters", ->
-    do $scope.applyFilters
+    $scope.showLoading "Applico i filtri ..."
+
+    $timeout ->
+      do $scope.applyFilters
+    , 50
   , true
 
   $scope.$on "events:listsingle:finish", ->
@@ -188,33 +202,25 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
   $scope.$on "event:close", (_ev, evento)->
     $scope.filters.event = false
 
+
+  # Methods
   $scope.init = ->
-    # Faking to be in veneto
     $scope.action = "Caricamento eventi ..."
 
-    position =
-      coords:
-        latitude: 45.953656
-        longitude: 12.502205
+    if navigator.geolocation?
+      navigator.geolocation.getCurrentPosition (position)=>
+        $scope.initMap position
 
+    else
+      $scope.initMap
+        coords:
+          latitude: 45.953656
+          longitude: 12.502205
+
+  $scope.initMap = (position)->
     $scope.createMap position
     $scope.getEvents ->
       $scope.populateMap()
-
-#   TODO: Uncomment and remove fake code
-#    if navigator.geolocation?
-#      navigator.geolocation.getCurrentPosition (position)=>
-#        $timeout ->
-#          $scope.loading = false
-#        , 0
-#        $scope.createMap position
-#        $scope.getEvents ->
-#          $scope.populateMap()
-#
-#      , (errorMessage)->
-#        alert errorMessage
-
-
 
   $scope.applyFilters = ->
     resultEvents = []
@@ -250,10 +256,11 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
     new google.maps.Marker
       position  : whereAmI
       map       : $scope.map
+      icon      : '/assets/images/markers/nscf.svg'
       title     : "Sei qui!"
 
   $scope.getEvents = (callback)->
-    $http.get(Nscf.apiUrl + "events").success (data)=>
+    $http.get(Nscf.apiUrl + "events/today").success (data)=>
       $scope.events = $scope._events = data
 
       callback()
@@ -261,7 +268,7 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
   $scope.populateMap = ->
     do $scope.removeMarkers
 
-    $scope.action = "Eventi caricati, applico i filtri ..."
+    $scope.action = "Caricamento eventi ..."
 
     for ev in $scope.events
       gps = ev.GPS_L.split(",")
@@ -273,10 +280,7 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
       marker = new google.maps.Marker
         position  : eventLatLng
         map       : $scope.map
-#        icon      :
-#          path        : google.maps.SymbolPath.CIRCLE,
-#          strokeColor : "red",
-#          scale       : 3
+        icon      : $scope.getMarkerIcon(ev)
 #        animation : google.maps.Animation.DROP
         evento: ev
         latLng: eventLatLng
@@ -289,20 +293,18 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
 
       $scope.markers[ev.id] = marker
 
+    do $scope.stopLoading
+
+  $scope.getMarkerIcon = (ev)->
+    cats = (cat.id.toLowerCase() for cat in $categories when ev[cat.id] isnt false)
+    name = if cats.length > 1 then "nscf" else cats[0]
+    '/assets/images/markers/'+name+'.svg'
+
   $scope.removeMarkers = ->
     for id,marker of $scope.markers
       marker.setMap null
 
     $scope.markers = {}
-
-  $scope.stopLoading = ->
-    $timeout ->
-      $scope.loading = false
-    , 500
-
-    $timeout ->
-      $(".nearby-container .loading").hide()
-    , 1000
 
   $(".nearby-container .events-container").height $(".main-view").height() - $(".nearby-container .events-container").position().top
 
@@ -313,10 +315,10 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
 
 Events.ListSingle = ($rootScope, $element, $scope)->
 
+  if $scope.$last is true then $rootScope.$broadcast "events:listsingle:finish"
+
   $scope.init = (ev)->
     $scope.event = ev
-
-    if $scope.$last is true then $rootScope.$broadcast "events:listsingle:finish", ev
 
   $scope.getEventImage = ->
     Nscf.apiUrl + "events/" + $scope.event.id + "/image"

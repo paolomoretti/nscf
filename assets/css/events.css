@@ -445,13 +445,11 @@ html.has-event-open .center-view .event-item .event-details .event-luogo {
   opacity: 1;
   z-index: 12;
   background: rgba(255, 255, 255, 0.8);
+  padding-top: 30%;
   -webkit-transition: opacity 0.4s 0.2s ease-out;
   -moz-transition: opacity 0.4s 0.2s ease-out;
   -o-transition: opacity 0.4s 0.2s ease-out;
   transition: opacity 0.4s 0.2s ease-out;
-}
-.nearby-container.loaded .loading {
-  opacity: 0;
 }
 .nearby-container .col {
   height: 100%;

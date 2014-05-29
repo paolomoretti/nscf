@@ -157,7 +157,16 @@ Events = function($scope, $routeParams, $http) {
 };
 
 Events.Nearby = function($scope, $timeout, $http, $categories) {
-  $scope.loading = true;
+  $scope.showLoading = function(action) {
+    return $(".nearby-container .loading").html(action).css("opacity", 1).show();
+  };
+  $scope.stopLoading = function() {
+    $(".nearby-container .loading").html("Caricamento...").css("opacity", 0);
+    return setTimeout(function() {
+      return $(".nearby-container .loading").hide();
+    }, 500);
+  };
+  $scope.showLoading("Caricamento mappa");
   $scope.action = "Riconoscimento posizione...";
   $scope.defaultZoom = 10;
   $scope.boundaries = false;
@@ -168,7 +177,10 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
     event: false
   };
   $scope.$watch("filters", function() {
-    return $scope.applyFilters();
+    $scope.showLoading("Applico i filtri ...");
+    return $timeout(function() {
+      return $scope.applyFilters();
+    }, 50);
   }, true);
   $scope.$on("events:listsingle:finish", function() {
     $scope.map.fitBounds($scope.boundaries);
@@ -185,14 +197,22 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
     return $scope.filters.event = false;
   });
   $scope.init = function() {
-    var position;
+    var _this = this;
     $scope.action = "Caricamento eventi ...";
-    position = {
-      coords: {
-        latitude: 45.953656,
-        longitude: 12.502205
-      }
-    };
+    if (navigator.geolocation != null) {
+      return navigator.geolocation.getCurrentPosition(function(position) {
+        return $scope.initMap(position);
+      });
+    } else {
+      return $scope.initMap({
+        coords: {
+          latitude: 45.953656,
+          longitude: 12.502205
+        }
+      });
+    }
+  };
+  $scope.initMap = function(position) {
     $scope.createMap(position);
     return $scope.getEvents(function() {
       return $scope.populateMap();
@@ -240,22 +260,22 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
     return new google.maps.Marker({
       position: whereAmI,
       map: $scope.map,
+      icon: '/assets/images/markers/nscf.svg',
       title: "Sei qui!"
     });
   };
   $scope.getEvents = function(callback) {
     var _this = this;
-    return $http.get(Nscf.apiUrl + "events").success(function(data) {
+    return $http.get(Nscf.apiUrl + "events/today").success(function(data) {
       $scope.events = $scope._events = data;
       return callback();
     });
   };
   $scope.populateMap = function() {
-    var ev, eventLatLng, gps, marker, _i, _len, _ref, _results;
+    var ev, eventLatLng, gps, marker, _i, _len, _ref;
     $scope.removeMarkers();
-    $scope.action = "Eventi caricati, applico i filtri ...";
+    $scope.action = "Caricamento eventi ...";
     _ref = $scope.events;
-    _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       ev = _ref[_i];
       gps = ev.GPS_L.split(",");
@@ -264,6 +284,7 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
       marker = new google.maps.Marker({
         position: eventLatLng,
         map: $scope.map,
+        icon: $scope.getMarkerIcon(ev),
         evento: ev,
         latLng: eventLatLng
       });
@@ -273,9 +294,25 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
         infowindow.setContent('<h3>' + this.evento.nome + '</h3>');
         return infowindow.open($scope.map, this);
       });
-      _results.push($scope.markers[ev.id] = marker);
+      $scope.markers[ev.id] = marker;
     }
-    return _results;
+    return $scope.stopLoading();
+  };
+  $scope.getMarkerIcon = function(ev) {
+    var cat, cats, name;
+    cats = (function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = $categories.length; _i < _len; _i++) {
+        cat = $categories[_i];
+        if (ev[cat.id] !== false) {
+          _results.push(cat.id.toLowerCase());
+        }
+      }
+      return _results;
+    })();
+    name = cats.length > 1 ? "nscf" : cats[0];
+    return '/assets/images/markers/' + name + '.svg';
   };
   $scope.removeMarkers = function() {
     var id, marker, _ref;
@@ -286,23 +323,15 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
     }
     return $scope.markers = {};
   };
-  $scope.stopLoading = function() {
-    $timeout(function() {
-      return $scope.loading = false;
-    }, 500);
-    return $timeout(function() {
-      return $(".nearby-container .loading").hide();
-    }, 1000);
-  };
   return $(".nearby-container .events-container").height($(".main-view").height() - $(".nearby-container .events-container").position().top);
 };
 
 Events.ListSingle = function($rootScope, $element, $scope) {
+  if ($scope.$last === true) {
+    $rootScope.$broadcast("events:listsingle:finish");
+  }
   $scope.init = function(ev) {
-    $scope.event = ev;
-    if ($scope.$last === true) {
-      return $rootScope.$broadcast("events:listsingle:finish", ev);
-    }
+    return $scope.event = ev;
   };
   $scope.getEventImage = function() {
     return Nscf.apiUrl + "events/" + $scope.event.id + "/image";
