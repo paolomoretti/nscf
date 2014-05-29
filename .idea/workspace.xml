@@ -23,21 +23,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="22" selection-start="574" selection-end="574" vertical-scroll-proportion="-7.5833335" vertical-offset="58" max-vertical-offset="1155">
+            <state line="6" column="91" selection-start="216" selection-end="216" vertical-scroll-proportion="0.13677812" vertical-offset="0" max-vertical-offset="1155">
               <folding>
-                <marker date="1401183705000" expanded="true" signature="135:268" placeholder="SELECT id, N..Query_Dettaglio..." />
+                <marker date="1401293873000" expanded="true" signature="135:216" placeholder="SELECT id, N..Query_Dettaglio..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="config.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="44" selection-start="628" selection-end="628" vertical-scroll-proportion="0.36474165" vertical-offset="0" max-vertical-offset="658">
+            <state line="22" column="51" selection-start="1198" selection-end="1198" vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="615">
               <folding />
             </state>
           </provider>
@@ -76,8 +76,8 @@
         <option value="$PROJECT_DIR$/assets/css/app.less" />
         <option value="$PROJECT_DIR$/assets/js/app.coffee" />
         <option value="$PROJECT_DIR$/assets/templates/home/page.html" />
-        <option value="$PROJECT_DIR$/api/index.php" />
         <option value="$PROJECT_DIR$/api/config.php" />
+        <option value="$PROJECT_DIR$/api/index.php" />
       </list>
     </option>
   </component>
@@ -602,19 +602,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/index.php">
+    <entry file="file://$PROJECT_DIR$/api/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="22" selection-start="574" selection-end="574" vertical-scroll-proportion="-7.5833335" vertical-offset="58" max-vertical-offset="1155">
-          <folding>
-            <marker date="1401183705000" expanded="true" signature="135:268" placeholder="SELECT id, N..Query_Dettaglio..." />
-          </folding>
+        <state line="22" column="51" selection-start="1198" selection-end="1198" vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="615">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/config.php">
+    <entry file="file://$PROJECT_DIR$/api/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="44" selection-start="628" selection-end="628" vertical-scroll-proportion="0.36474165" vertical-offset="0" max-vertical-offset="658">
-          <folding />
+        <state line="6" column="91" selection-start="216" selection-end="216" vertical-scroll-proportion="0.13677812" vertical-offset="0" max-vertical-offset="1155">
+          <folding>
+            <marker date="1401293873000" expanded="true" signature="135:216" placeholder="SELECT id, N..Query_Dettaglio..." />
+          </folding>
         </state>
       </provider>
     </entry>
