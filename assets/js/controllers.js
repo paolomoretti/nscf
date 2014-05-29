@@ -265,7 +265,7 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
   };
   $scope.getEvents = function(callback) {
     var _this = this;
-    return $http.get(Nscf.apiUrl + "events").success(function(data) {
+    return $http.get(Nscf.apiUrl + "events/today").success(function(data) {
       $scope.events = $scope._events = data;
       return callback();
     });

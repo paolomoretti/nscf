@@ -254,7 +254,7 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
       title     : "Sei qui!"
 
   $scope.getEvents = (callback)->
-    $http.get(Nscf.apiUrl + "events").success (data)=>
+    $http.get(Nscf.apiUrl + "events/today").success (data)=>
       $scope.events = $scope._events = data
 
       callback()
