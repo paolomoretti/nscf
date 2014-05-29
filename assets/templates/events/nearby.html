@@ -17,7 +17,7 @@
         </div>
         <div class="events-container">
             <ul class="clearlist">
-                <li ng-repeat="event in events">
+                <li ng-repeat="event in events | limitTo: 30">
                     <div ng-include="'assets/templates/events/single-event-text-list.html'"></div>
                 </li>
             </ul>

@@ -157,6 +157,10 @@ Events = function($scope, $routeParams, $http) {
 };
 
 Events.Nearby = function($scope, $timeout, $http, $categories) {
+  var boundaries, defaultZoom,
+    _this = this;
+  defaultZoom = 10;
+  boundaries = false;
   $scope.showLoading = function(action) {
     return $(".nearby-container .loading").html(action).css("opacity", 1).show();
   };
@@ -167,14 +171,10 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
     }, 500);
   };
   $scope.showLoading("Caricamento mappa");
-  $scope.action = "Riconoscimento posizione...";
-  $scope.defaultZoom = 10;
-  $scope.boundaries = false;
   $scope.$categories = $categories;
   $scope.markers = {};
   $scope.filters = {
-    categories: [],
-    event: false
+    categories: []
   };
   $scope.$watch("filters", function() {
     $scope.showLoading("Applico i filtri ...");
@@ -183,7 +183,7 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
     }, 50);
   }, true);
   $scope.$on("events:listsingle:finish", function() {
-    $scope.map.fitBounds($scope.boundaries);
+    $scope.map.fitBounds(boundaries);
     return $scope.stopLoading();
   });
   $scope.$on("event:open", function(_ev, evento) {
@@ -193,8 +193,9 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
     $scope.map.panTo($scope.markers[evento.id].latLng);
     return $scope.map.setZoom(13);
   });
-  $scope.$on("event:close", function(_ev, evento) {
-    return $scope.filters.event = false;
+  $scope.$on("event:close", function() {
+    $scope.map.setZoom(defaultZoom);
+    return $scope.map.fitBounds(boundaries);
   });
   $scope.init = function() {
     var _this = this;
@@ -221,9 +222,7 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
   $scope.applyFilters = function() {
     var category, ev, resultEvents, _evs, _i, _len, _ref;
     resultEvents = [];
-    if ($scope.filters.event !== false) {
-      resultEvents.push($scope.filters.event);
-    } else if ($scope.filters.categories.length > 0) {
+    if ($scope.filters.categories.length > 0) {
       _ref = $scope.filters.categories;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         category = _ref[_i];
@@ -251,12 +250,12 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
     var options, whereAmI;
     whereAmI = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     options = {
-      zoom: $scope.defaultZoom,
+      zoom: defaultZoom,
       center: whereAmI,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     $scope.map = new google.maps.Map($("#map")[0], options);
-    $scope.boundaries = new google.maps.LatLngBounds();
+    boundaries = new google.maps.LatLngBounds();
     return new google.maps.Marker({
       position: whereAmI,
       map: $scope.map,
@@ -266,7 +265,7 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
   };
   $scope.getEvents = function(callback) {
     var _this = this;
-    return $http.get(Nscf.apiUrl + "events/today").success(function(data) {
+    return $http.get(Nscf.apiUrl + "events").success(function(data) {
       $scope.events = $scope._events = data;
       return callback();
     });
@@ -275,28 +274,30 @@ Events.Nearby = function($scope, $timeout, $http, $categories) {
     var ev, eventLatLng, gps, marker, _i, _len, _ref;
     $scope.removeMarkers();
     $scope.action = "Caricamento eventi ...";
-    _ref = $scope.events;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      ev = _ref[_i];
-      gps = ev.GPS_L.split(",");
-      eventLatLng = new google.maps.LatLng(parseFloat(gps[0]), parseFloat(gps[1]));
-      $scope.boundaries.extend(eventLatLng);
-      marker = new google.maps.Marker({
-        position: eventLatLng,
-        map: $scope.map,
-        icon: $scope.getMarkerIcon(ev),
-        evento: ev,
-        latLng: eventLatLng
-      });
-      google.maps.event.addListener(marker, 'click', function() {
-        var infowindow;
-        infowindow = new google.maps.InfoWindow;
-        infowindow.setContent('<h3>' + this.evento.nome + '</h3>');
-        return infowindow.open($scope.map, this);
-      });
-      $scope.markers[ev.id] = marker;
+    if (($scope.events != null) && $scope.events.length > 0) {
+      _ref = $scope.events;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        ev = _ref[_i];
+        gps = ev.GPS_L.split(",");
+        eventLatLng = new google.maps.LatLng(parseFloat(gps[0]), parseFloat(gps[1]));
+        boundaries.extend(eventLatLng);
+        marker = new google.maps.Marker({
+          position: eventLatLng,
+          map: $scope.map,
+          icon: $scope.getMarkerIcon(ev),
+          evento: ev,
+          latLng: eventLatLng
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          var infowindow;
+          infowindow = new google.maps.InfoWindow;
+          infowindow.setContent('<h3>' + this.evento.nome + '</h3>');
+          return infowindow.open($scope.map, this);
+        });
+        $scope.markers[ev.id] = marker;
+      }
+      return $scope.stopLoading();
     }
-    return $scope.stopLoading();
   };
   $scope.getMarkerIcon = function(ev) {
     var cat, cats, name;

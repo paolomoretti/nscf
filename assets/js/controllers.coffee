@@ -156,6 +156,10 @@ Events = ($scope, $routeParams, $http)->
 
 Events.Nearby = ($scope, $timeout, $http, $categories)->
 
+  # Statics and variables
+  defaultZoom = 10
+  boundaries = false
+
   $scope.showLoading = (action)->
     $(".nearby-container .loading").html(action).css("opacity", 1).show()
 
@@ -167,14 +171,10 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
 
   $scope.showLoading "Caricamento mappa"
 
-  $scope.action = "Riconoscimento posizione..."
-  $scope.defaultZoom = 10
-  $scope.boundaries = false
   $scope.$categories = $categories
   $scope.markers = {}
   $scope.filters =
     categories: []
-    event: false
 
   # Events
   $scope.$watch "filters", ->
@@ -185,8 +185,8 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
     , 50
   , true
 
-  $scope.$on "events:listsingle:finish", ->
-    $scope.map.fitBounds $scope.boundaries
+  $scope.$on "events:listsingle:finish", =>
+    $scope.map.fitBounds boundaries
 
     do $scope.stopLoading
 
@@ -196,12 +196,10 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
 
     $scope.map.panTo $scope.markers[evento.id].latLng
     $scope.map.setZoom 13
-#    $scope.map.setCenter $scope.markers[evento.id].latLng
-#    $scope.map.fitBounds eventBounds
 
-  $scope.$on "event:close", (_ev, evento)->
-    $scope.filters.event = false
-
+  $scope.$on "event:close", ->
+    $scope.map.setZoom defaultZoom
+    $scope.map.fitBounds boundaries
 
   # Methods
   $scope.init = ->
@@ -225,12 +223,8 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
   $scope.applyFilters = ->
     resultEvents = []
 
-    # Apply single event filter
-    if $scope.filters.event isnt false
-      resultEvents.push $scope.filters.event
-
     # Apply event category filter
-    else if $scope.filters.categories.length > 0
+    if $scope.filters.categories.length > 0
       for category in $scope.filters.categories
         _evs = (ev for ev in $scope._events when ev[category] is true)
         resultEvents = resultEvents.concat _evs
@@ -246,12 +240,12 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
   $scope.createMap = (position)->
     whereAmI = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
     options =
-      zoom      : $scope.defaultZoom
+      zoom      : defaultZoom
       center    : whereAmI
       mapTypeId : google.maps.MapTypeId.ROADMAP
 
     $scope.map = new google.maps.Map($("#map")[0], options)
-    $scope.boundaries = new google.maps.LatLngBounds()
+    boundaries = new google.maps.LatLngBounds()
 
     new google.maps.Marker
       position  : whereAmI
@@ -260,7 +254,7 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
       title     : "Sei qui!"
 
   $scope.getEvents = (callback)->
-    $http.get(Nscf.apiUrl + "events/today").success (data)=>
+    $http.get(Nscf.apiUrl + "events").success (data)=>
       $scope.events = $scope._events = data
 
       callback()
@@ -270,30 +264,30 @@ Events.Nearby = ($scope, $timeout, $http, $categories)->
 
     $scope.action = "Caricamento eventi ..."
 
-    for ev in $scope.events
-      gps = ev.GPS_L.split(",")
+    if $scope.events? and $scope.events.length > 0
+      for ev in $scope.events
+        gps = ev.GPS_L.split(",")
 
-      eventLatLng = new google.maps.LatLng(parseFloat(gps[0]), parseFloat(gps[1]))
+        eventLatLng = new google.maps.LatLng(parseFloat(gps[0]), parseFloat(gps[1]))
 
-      $scope.boundaries.extend eventLatLng
+        boundaries.extend eventLatLng
 
-      marker = new google.maps.Marker
-        position  : eventLatLng
-        map       : $scope.map
-        icon      : $scope.getMarkerIcon(ev)
-#        animation : google.maps.Animation.DROP
-        evento: ev
-        latLng: eventLatLng
+        marker = new google.maps.Marker
+          position  : eventLatLng
+          map       : $scope.map
+          icon      : $scope.getMarkerIcon(ev)
+          evento: ev
+          latLng: eventLatLng
 
-      google.maps.event.addListener marker, 'click', ->
-        infowindow = new google.maps.InfoWindow
+        google.maps.event.addListener marker, 'click', ->
+          infowindow = new google.maps.InfoWindow
 
-        infowindow.setContent '<h3>'+@.evento.nome+'</h3>'
-        infowindow.open $scope.map, @
+          infowindow.setContent '<h3>'+@.evento.nome+'</h3>'
+          infowindow.open $scope.map, @
 
-      $scope.markers[ev.id] = marker
+        $scope.markers[ev.id] = marker
 
-    do $scope.stopLoading
+      do $scope.stopLoading
 
   $scope.getMarkerIcon = (ev)->
     cats = (cat.id.toLowerCase() for cat in $categories when ev[cat.id] isnt false)
